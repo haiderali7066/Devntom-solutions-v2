@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devntom.com/sitemap.xml
+
+# Disallow admin and private areas if they exist
+Disallow: /admin
+Disallow: /private
+
+# Disallow common crawler traps
+Disallow: /*?*
+Disallow: /*#
