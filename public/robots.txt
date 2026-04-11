@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://devntom.com/sitemap.xml
+Sitemap: https://devntomsolutions.com/sitemap.xml
 
 # Disallow admin and private areas if they exist
 Disallow: /admin
