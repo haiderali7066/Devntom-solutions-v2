@@ -7,6 +7,3 @@ Sitemap: https://devntomsolutions.com/sitemap.xml
 Disallow: /admin
 Disallow: /private
 
-# Disallow common crawler traps
-Disallow: /*?*
-Disallow: /*#
