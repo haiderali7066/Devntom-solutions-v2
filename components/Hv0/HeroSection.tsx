@@ -7,17 +7,17 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&auto=format&fit=crop&q=80",
     tag: "Web & App Development",
     headline: ["Build Digital", "Products That", "Actually Work"],
   },
   {
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&auto=format&fit=crop&q=80",
     tag: "AI Automation & Chatbots",
     headline: ["Automate. Scale.", "Lead With", "Intelligence"],
   },
-  {
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&auto=format&fit=crop&q=80",
+ {
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&auto=format&fit=crop&q=80",
     tag: "Digital Marketing",
     headline: ["Grow Your Brand.", "Dominate Your", "Market"],
   },
@@ -46,9 +46,9 @@ export default function HeroSection() {
             className="absolute inset-0"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={slides[current].image} className="w-full h-full object-cover opacity-50" alt="" />
+            <img src={slides[current].image} className="object-cover w-full h-full opacity-50" alt="" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/90" />
-            <div className="absolute inset-0 opacity-30 mix-blend-screen pointer-events-none">
+            <div className="absolute inset-0 pointer-events-none opacity-30 mix-blend-screen">
               <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(110deg,transparent_20%,rgba(124,58,237,0.3)_45%,rgba(139,92,246,0.2)_55%,transparent_70%)] blur-[80px] transform -rotate-12 scale-150" />
             </div>
           </motion.div>
@@ -56,19 +56,19 @@ export default function HeroSection() {
       </div>
 
       {/* Top bar */}
-      <div className="relative z-10 pt-20 px-8 lg:px-16 flex justify-between items-start">
+      <div className="relative z-10 flex items-start justify-between px-8 pt-20 lg:px-16">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
           className="flex items-center gap-2">
           </motion.div>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-          className="hidden md:block text-right">
+          className="hidden text-right md:block">
           <p className="text-[10px] font-bold tracking-[0.25em] text-white/35 uppercase">Full-Service</p>
           <p className="text-[10px] font-bold tracking-[0.25em] text-white/35 uppercase">Digital Agency</p>
         </motion.div>
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 px-8 lg:px-16 max-w-7xl w-full mx-auto">
+      <div className="relative z-10 w-full px-8 mx-auto lg:px-16 max-w-7xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -76,7 +76,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-6 max-w-3xl"
+            className="max-w-3xl space-y-6"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10">
               <div className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
@@ -89,7 +89,7 @@ export default function HeroSection() {
               ))}
             </h1>
 
-            <p className="text-base text-white/50 max-w-md leading-relaxed font-medium">
+            <p className="max-w-md text-base font-medium leading-relaxed text-white/50">
               We design, build, and grow digital products — from custom websites and mobile apps to AI-powered automation — for businesses that want to lead, not follow.
             </p>
 
@@ -108,7 +108,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom area */}
-      <div className="relative z-10 w-full flex flex-col items-center pb-6">
+      <div className="relative z-10 flex flex-col items-center w-full pb-6">
         {/* Giant wordmark */}
         <div className="relative w-full overflow-hidden">
           <motion.div
@@ -125,7 +125,7 @@ export default function HeroSection() {
         </div>
 
         {/* Slide indicators */}
-        <div className="flex gap-3 mt-2 relative z-10">
+        <div className="relative z-10 flex gap-3 mt-2">
           {slides.map((_, i) => (
             <button key={i} onClick={() => setCurrent(i)}
               className={`h-[2px] transition-all duration-500 ${i === current ? "w-12 bg-violet-400" : "w-6 bg-white/20"}`}
