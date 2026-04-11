@@ -5,7 +5,7 @@ import { Metadata } from "next";
 // Shared metadata generator — use in every page's generateMetadata()
 // ════════════════════════════════════════════════════════════════════════
 
-const SITE_URL  = "https://devntom.com";
+const SITE_URL  = "https://devntomsolutions.com";
 const SITE_NAME = "DEVNTOM Solutions";
 const DEFAULT_OG_IMAGE = "/og-image.png";
 

@@ -4,7 +4,7 @@
 // Use with <StructuredData /> component or inline <script> tags
 // ════════════════════════════════════════════════════════════════════════
 
-const BASE = "https://devntom.com";
+const BASE = "https://devntomsolutions.com";
 
 // ─── ORGANIZATION ─────────────────────────────────────────────────────────────
 // Use on: every page (already in layout.tsx)

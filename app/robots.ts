@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       
     ],
-    sitemap: "https://devntom.com/sitemap.xml",
-    host: "https://devntom.com",
+    sitemap: "https://devntomsolutions.com/sitemap.xml",
+    host: "https://devntomsolutions.com",
   };
 }

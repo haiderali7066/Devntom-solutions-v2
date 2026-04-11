@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   // Base URL — all relative image paths resolve from here
-  metadataBase: new URL('https://devntom.com'),
+  metadataBase: new URL('https://devntomsolutions.com'),
 
   // Title — appears in browser tab and Google results
   title: {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   ],
 
   // Author / creator
-  authors:   [{ name: 'DEVNTOM Solutions', url: 'https://devntom.com' }],
+  authors:   [{ name: 'DEVNTOM Solutions', url: 'https://devntomsolutions.com' }],
   creator:   'DEVNTOM Solutions',
   publisher: 'DEVNTOM Solutions',
 
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   formatDetection: { email: false, address: false, telephone: false },
 
   // Canonical URL
-  alternates: { canonical: 'https://devntom.com' },
+  alternates: { canonical: 'https://devntomsolutions.com' },
 
   // ── Icons ──────────────────────────────────────────────────────────────────
   icons: {
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   openGraph: {
     type:        'website',
     locale:      'en_US',
-    url:         'https://devntom.com',
+    url:         'https://devntomsolutions.com',
     siteName:    'DEVNTOM Solutions',
     title:       'DEVNTOM Solutions | Where Systems Become Strategy',
     description: 'Global software & digital agency — web development, AI automation, custom software, app development, and digital marketing for businesses worldwide.',

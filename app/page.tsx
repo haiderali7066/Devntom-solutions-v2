@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://devntom.com'),
+  metadataBase: new URL('https://devntomsolutions.com'),
   alternates: {
-    canonical: 'https://devntom.com',
+    canonical: 'https://devntomsolutions.com',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://devntom.com',
+    url: 'https://devntomsolutions.com',
     title: 'DEVNTOM Solutions | Digital Transformation Experts',
     description: 'Professional web development, digital marketing, software solutions, and AI automation for your business growth.',
     siteName: 'DEVNTOM Solutions',

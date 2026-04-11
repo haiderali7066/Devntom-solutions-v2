@@ -13,7 +13,7 @@ import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
 //   title: "Blog | DEVNTOM Solutions — Web Dev, AI, Marketing Insights",
 //   description: "Expert articles on web development, AI automation, digital marketing, software engineering, and business growth from the DEVNTOM Solutions team.",
 //   keywords: "devntom blog, web development articles, AI automation tips, digital marketing insights, software development blog, Next.js tutorials, SEO tips Pakistan",
-//   openGraph: { title: "DEVNTOM Blog | Tech Insights & Digital Strategy", url: "https://devntom.com/blog" },
+//   openGraph: { title: "DEVNTOM Blog | Tech Insights & Digital Strategy", url: "https://devntomsolutions.com/blog" },
 // };
 
 const categories = ["All", "Web Development", "AI & Automation", "Digital Marketing", "Software", "App Development", "UI/UX Design", "Business Growth"];

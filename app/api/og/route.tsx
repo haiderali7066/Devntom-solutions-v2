@@ -5,13 +5,13 @@
 // Use in generateMetadata() like this:
 //
 //   openGraph: {
-//     images: [`https://devntom.com/api/og?title=Web+Development&tag=Services`],
+//     images: [`https://devntomsolutions.com/api/og?title=Web+Development&tag=Services`],
 //   }
 //
 // Query params:
 //   title    — main headline  (required)
 //   subtitle — smaller text   (optional, default: "Where Systems Become Strategy")
-//   tag      — pill label     (optional, default: "devntom.com")
+//   tag      — pill label     (optional, default: "devntomsolutions.com")
 
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
 
   const title    = searchParams.get("title")    || "DEVNTOM Solutions";
   const subtitle = searchParams.get("subtitle") || "Where Systems Become Strategy";
-  const tag      = searchParams.get("tag")      || "devntom.com";
+  const tag      = searchParams.get("tag")      || "devntomsolutions.com";
 
   return new ImageResponse(
     (
@@ -179,7 +179,7 @@ export async function GET(req: NextRequest) {
             devntomsolutions@gmail.com  ·  +92 325 6036838
           </span>
           <span style={{ color: "rgba(255,255,255,0.15)", fontSize: "14px", fontWeight: 600 }}>
-            devntom.com
+            devntomsolutions.com
           </span>
         </div>
       </div>

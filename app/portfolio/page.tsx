@@ -9,7 +9,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 //   title: "Portfolio | DEVNTOM Solutions — Case Studies & Client Work",
 //   description: "Explore DEVNTOM Solutions' portfolio of web development, app development, AI automation, custom software, and digital marketing projects. Real results for real businesses.",
 //   keywords: "devntom portfolio, web development case studies, software projects Pakistan, app development portfolio, digital marketing results, client work devntom",
-//   openGraph: { title: "DEVNTOM Portfolio | Proven Digital Transformation", url: "https://devntom.com/portfolio" },
+//   openGraph: { title: "DEVNTOM Portfolio | Proven Digital Transformation", url: "https://devntomsolutions.com/portfolio" },
 // };
 
 const categories = ["All", "Web Development", "Web Apps & SaaS", "E-Commerce", "App Development", "Custom Software", "AI Automation", "Digital Marketing", "UI/UX Design"];

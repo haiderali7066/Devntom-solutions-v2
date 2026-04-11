@@ -9,7 +9,7 @@ import { ArrowRight, ArrowUpRight, CheckCircle2, Plus, Minus, Mail, MessageCircl
 //   title: "Business Software Products | CRM, ERP, POS Systems — DEVNTOM Solutions",
 //   description: "Custom CRM, ERP, POS, inventory management, HR systems, and business intelligence dashboards built by DEVNTOM Solutions. Purpose-built software for Pakistani and Saudi Arabian businesses.",
 //   keywords: "custom CRM Pakistan, ERP system Saudi Arabia, POS software, inventory management system, HR software, business dashboard, custom software development, ERP Pakistan, CRM development",
-//   openGraph: { title: "Business Software Products | CRM, ERP, POS — DEVNTOM", url: "https://devntom.com/products" },
+//   openGraph: { title: "Business Software Products | CRM, ERP, POS — DEVNTOM", url: "https://devntomsolutions.com/products" },
 // };
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
