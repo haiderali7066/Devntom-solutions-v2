@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-// import HomeContent from '@/components/Hv1/page';
-import HeroSection from "@/components/Hv0/HeroSection";
+
+import HeroSection from '@/components/Hero';
+// import HeroSection from "@/components/Hv0/HeroSection";
 import TrustedBanner from "@/components/Hv0/TrustedBanner";
 import Overview from "@/components/Hv0/Overview";
 import ServicesSection from "@/components/Hv0/ServicesSection";
