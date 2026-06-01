@@ -295,7 +295,7 @@ export default function Navbar() {
   className="flex items-center gap-3 group z-50 flex-shrink-0"
 >
   <Image
-    src="/logosign.PNG" // place your logo inside /public folder
+    src="/logosign.PNG " // place your logo inside /public folder
     alt="Devntom Solutions"
     width={40}
     height={40}
