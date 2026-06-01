@@ -326,7 +326,7 @@ export default function Footer() {
           viewport={{ once: true }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="text-[clamp(3.5rem,12vw,11rem)] font-black text-white leading-[0.85] tracking-[-0.03em] px-6 lg:px-10 pt-8 pb-3 whitespace-nowrap overflow-hidden"
         >
-          Get in Touch
+          Devntom Solutions
         </motion.h2>
       </div>
 

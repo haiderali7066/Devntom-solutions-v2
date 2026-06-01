@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
-import HeroSection from '@/components/Hero';
-// import HeroSection from "@/components/Hv0/HeroSection";
+// import HeroSection from '@/components/Hero';
+import HeroSection from "@/components/Hero2";
 import TrustedBanner from "@/components/Hv0/TrustedBanner";
+import Services from "@/components/services";
 import Overview from "@/components/Hv0/Overview";
 import ServicesSection from "@/components/Hv0/ServicesSection";
 import WhyUs from "@/components/Hv0/WhyUs";
@@ -14,7 +15,7 @@ import Process from "@/components/Hv0/Process";
 import Insights from "@/components/Hv0/Insights";
 import FAQ from "@/components/Hv0/FAQ";
 import CTA from "@/components/Hv0/CTA";
-
+import ContactForm from "@/components/ContactForm"
 
 export const metadata: Metadata = {
   title: 'DEVNTOM Solutions | Web Development, Digital Marketing & AI Automation',
@@ -58,6 +59,9 @@ export default function Home() {
       {/* 2. Trusted By */}
       <TrustedBanner />
 
+      <Services />
+
+
       {/* 3. Overview */}
       <Overview />
 
@@ -90,6 +94,8 @@ export default function Home() {
 
       {/* 13. CTA / Get In Touch */}
       <CTA />
+
+      <ContactForm />
 
   </>
   );

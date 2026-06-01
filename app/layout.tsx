@@ -1,162 +1,246 @@
-import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import SchemaMarkup from '@/components/schema'
-import './globals.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
-// ─── Fonts ────────────────────────────────────────────────────────────────────
+import "./globals.css";
 
-const geist     = Geist({ subsets: ['latin'], variable: '--font-geist' });
-const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import SchemaMarkup from "@/components/schema";
+import LenisProvider from "@/components/LenisProvider";
 
-// ─── Viewport ─────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
+// Fonts
+// ─────────────────────────────────────────────────────────
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
+
+// ─────────────────────────────────────────────────────────
+// Viewport
+// ─────────────────────────────────────────────────────────
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
   themeColor: [
-    { media: '(prefers-color-scheme: dark)',  color: '#080810' },
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "#080810",
+    },
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "#ffffff",
+    },
   ],
-  colorScheme: 'dark',
+  colorScheme: "dark",
 };
 
-// ─── Metadata ─────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
+// SEO Metadata
+// ─────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  // Base URL — all relative image paths resolve from here
-  metadataBase: new URL('https://devntomsolutions.com'),
+  metadataBase: new URL("https://devntomsolutions.com"),
 
-  // Title — appears in browser tab and Google results
   title: {
-    default:  'DEVNTOM Solutions | Web Development, AI Automation & Digital Marketing',
-    template: '%s | DEVNTOM Solutions',
+    default:
+      "DEVNTOM Solutions | Web Development, AI Automation & Software Solutions",
+    template: "%s | DEVNTOM Solutions",
   },
 
-  // Description — shown in Google search snippets
   description:
-    'DEVNTOM Solutions is a global software & digital agency. We build scalable websites, AI automation systems, custom software (CRM/ERP/POS), mobile apps, and digital marketing strategies for businesses in 15+ countries.',
+    "DEVNTOM Solutions is a global software and digital solutions company specializing in web development, SaaS applications, AI automation, custom software, mobile apps, branding, UI/UX, SEO, and digital transformation.",
 
-  // Keywords
+  applicationName: "DEVNTOM Solutions",
+
+  referrer: "origin-when-cross-origin",
+
   keywords: [
-    'web development Pakistan',
-    'software house Lahore',
-    'AI automation chatbots',
-    'digital marketing agency Pakistan',
-    'custom CRM ERP software',
-    'app development Pakistan',
-    'UI UX design agency',
-    'Next.js development',
-    'SEO agency Pakistan',
-    'software company Saudi Arabia',
-    'devntom solutions',
-    'e-commerce development',
-    'SaaS development',
-    'mobile app development',
+    "DEVNTOM Solutions",
+    "Web Development Company",
+    "Software House Pakistan",
+    "Software Company Saudi Arabia",
+    "AI Automation",
+    "AI Agency",
+    "Custom CRM Development",
+    "ERP Software",
+    "POS Software",
+    "Next.js Agency",
+    "React Development",
+    "Node.js Development",
+    "SEO Services",
+    "Digital Marketing Agency",
+    "Branding Agency",
+    "UI UX Design",
+    "Mobile App Development",
+    "SaaS Development",
+    "Ecommerce Development",
+    "Website Development Pakistan",
   ],
 
-  // Author / creator
-  authors:   [{ name: 'DEVNTOM Solutions', url: 'https://devntomsolutions.com' }],
-  creator:   'DEVNTOM Solutions',
-  publisher: 'DEVNTOM Solutions',
+  authors: [
+    {
+      name: "DEVNTOM Solutions",
+      url: "https://devntomsolutions.com",
+    },
+  ],
 
-  // Prevent phone / email auto-detection on iOS
-  formatDetection: { email: false, address: false, telephone: false },
+  creator: "DEVNTOM Solutions",
+  publisher: "DEVNTOM Solutions",
 
-  // Canonical URL
-  alternates: { canonical: 'https://devntomsolutions.com' },
-
-  // ── Icons ──────────────────────────────────────────────────────────────────
-  icons: {
-    icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
-    ],
-    apple:    [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/favicon.ico',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 
-  // ── Web manifest (PWA) ─────────────────────────────────────────────────────
-  manifest: '/site.webmanifest',
+  alternates: {
+    canonical: "https://devntomsolutions.com",
+  },
 
-  // ── Open Graph (Facebook, LinkedIn, WhatsApp previews) ────────────────────
-  openGraph: {
-    type:        'website',
-    locale:      'en_US',
-    url:         'https://devntomsolutions.com',
-    siteName:    'DEVNTOM Solutions',
-    title:       'DEVNTOM Solutions | Where Systems Become Strategy',
-    description: 'Global software & digital agency — web development, AI automation, custom software, app development, and digital marketing for businesses worldwide.',
-    images: [
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  verification: {
+    google: "YOUR_GOOGLE_SEARCH_CONSOLE_CODE",
+  },
+
+  icons: {
+    icon: [
       {
-        url:    '/og-image.png',   // Place a 1200×630 image in /public/
-        width:  1200,
-        height: 630,
-        alt:    'DEVNTOM Solutions — Where Systems Become Strategy',
+        url: "/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+    ],
+
+    shortcut: "/favicon.ico",
+
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
       },
     ],
   },
 
-  // ── Twitter / X card ──────────────────────────────────────────────────────
+  manifest: "/site.webmanifest",
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://devntomsolutions.com",
+
+    siteName: "DEVNTOM Solutions",
+
+    title: "DEVNTOM Solutions | Where Systems Become Strategy",
+
+    description:
+      "Global software & digital solutions company specializing in web development, AI automation, SaaS, custom software, mobile apps, branding, UI/UX, and digital marketing.",
+
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "DEVNTOM Solutions",
+      },
+    ],
+  },
+
   twitter: {
-    card:        'summary_large_image',
-    site:        '@DevntomS18433',
-    creator:     '@DevntomS18433',
-    title:       'DEVNTOM Solutions | Web Development & AI Automation',
-    description: 'Global software agency — web development, AI automation, custom software & digital marketing.',
-    images:      ['/og-image.png'],
+    card: "summary_large_image",
+
+    title: "DEVNTOM Solutions | Web Development & AI Automation",
+
+    description:
+      "Web Development, SaaS, AI Automation, CRM/ERP Systems, Mobile Apps, SEO & Digital Marketing.",
+
+    creator: "@DevntomS18433",
+    site: "@DevntomS18433",
+
+    images: ["/og-image.png"],
   },
 
-  // ── Robots ────────────────────────────────────────────────────────────────
-  robots: {
-    index:  true,
-    follow: true,
-    googleBot: {
-      index:               true,
-      follow:              true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet':       -1,
-    },
+  appleWebApp: {
+    capable: true,
+    title: "DEVNTOM Solutions",
+    statusBarStyle: "black-translucent",
   },
 
-  // ── Category ──────────────────────────────────────────────────────────────
-  category: 'technology',
+  category: "Technology",
 };
 
-// ─── Root Layout ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
+// Root Layout
+// ─────────────────────────────────────────────────────────
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className={`dark ${geist.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`dark ${geist.variable} ${geistMono.variable}`}
+    >
       <head>
         <SchemaMarkup />
 
-        {/* Geo tags for local SEO */}
-        <meta name="geo.region"    content="PK" />
-        <meta name="geo.placename" content="Lahore, Pakistan" />
-        <meta name="language"      content="English" />
+        {/* Local SEO */}
+        <meta name="geo.region" content="PK-SD" />
+        <meta name="geo.placename" content="Karachi" />
+        <meta name="language" content="English" />
 
-        {/* Google Fonts — Poppins, Lato, Roboto */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap"
-          rel="stylesheet"
-        />
+        {/* Global Business */}
+        <meta name="distribution" content="global" />
+        <meta name="rating" content="general" />
+        <meta name="revisit-after" content="7 days" />
+
+        {/* Theme */}
+        <meta name="theme-color" content="#080810" />
       </head>
-      <body className="font-sans antialiased">
+
+      <body className="font-sans antialiased overflow-x-hidden">
+        {/* Smooth Scroll */}
+        <LenisProvider />
+
         <Navbar />
-        {children}
-        <Analytics />
+
+        <main>{children}</main>
+
         <Footer />
+
+        <Analytics />
       </body>
     </html>
   );

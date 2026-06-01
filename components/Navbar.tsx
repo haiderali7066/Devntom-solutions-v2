@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Globe, Megaphone, Code2, Smartphone, Palette, Bot,
@@ -288,18 +290,23 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group z-50 flex-shrink-0">
-          <div
-            className="flex items-center justify-center w-8 h-8 transition-all duration-300 rounded-xl group-hover:scale-105"
-            style={{
-              background: `linear-gradient(135deg, ${ACCENT}, #7c3aed)`,
-              boxShadow: `0 4px 18px ${ACCENT}45, inset 0 1px 1px rgba(255,255,255,0.25)`,
-            }}
-          >
-            <span className="text-sm font-black text-white">D</span>
-          </div>
-          <span className="text-base font-black tracking-tight text-white">DEVNTOM</span>
-        </Link>
+<Link
+  href="/"
+  className="flex items-center gap-3 group z-50 flex-shrink-0"
+>
+  <Image
+    src="/logosign.PNG" // place your logo inside /public folder
+    alt="Devntom Solutions"
+    width={40}
+    height={40}
+    className="object-contain rounded-full "
+    priority
+  />
+
+  <span className="text-base font-black tracking-tight text-white">
+    DEVNTOM SOLUTIONS
+  </span>
+</Link>
 
         {/* Desktop Nav Links */}
         <div className="relative items-center hidden gap-0.5 md:flex">

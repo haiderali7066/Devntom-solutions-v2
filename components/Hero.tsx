@@ -38,7 +38,7 @@ const Hero = () => {
         className="absolute inset-0 w-full h-full object-cover scale-105"
         // Scale 105% prevents slight border anti-aliasing issues on some browsers
       >
-        <source src="/5mbhv.mp4" type="video/mp4" />
+        <source src="/v3.mp4" type="video/mp4" />
       </video>
 
       {/* Upgraded Gradient Overlay for better depth and text readability */}
