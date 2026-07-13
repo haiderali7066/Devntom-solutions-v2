@@ -82,11 +82,14 @@ export default function Hero() {
       `}</style>
 
       {/* ════════════════════════════════════════════════
-          INTRO  (logo → name → curtains lift)
+          INTRO  (Logo Ring → Name Reveal → Curtain Lift)
       ════════════════════════════════════════════════ */}
       {!introFinished && (
-        <div className="fixed inset-0 z-50 pointer-events-none">
-          {/* 4 curtain panels */}
+        <div 
+          className="fixed inset-0 z-50 pointer-events-none overflow-hidden select-none"
+          aria-hidden="true"
+        >
+          {/* 4 Staggered Curtain Panels */}
           <div className="absolute inset-0 flex">
             {[...Array(4)].map((_, i) => (
               <motion.div
@@ -94,76 +97,149 @@ export default function Hero() {
                 initial={{ y: "0%" }}
                 animate={{ y: "-100%" }}
                 transition={{
-                  duration: 1.0,
+                  duration: 1.1,
                   ease: [0.76, 0, 0.24, 1],
-                  delay: 2.5 + i * 0.09,
+                  delay: 2.8 + i * 0.08,
                 }}
-                className="h-full flex-1 bg-white"
+                className="h-full flex-1 bg-white border-r border-slate-800/20 last:border-r-0"
               />
             ))}
           </div>
 
-          {/* Logo + brand text overlay */}
+          {/* Intro Content Container */}
           <motion.div
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 0 }}
-            transition={{ duration: 0.3, delay: 2.35 }}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-white"
+            initial={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 0, scale: 0.96, filter: "blur(4px)" }}
+            transition={{ duration: 0.5, delay: 2.6, ease: [0.33, 1, 0.68, 1] }}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-7 bg-slate-950 text-white"
           >
-            {/* Logo PNG */}
-            <motion.img
-              src="/logosign.PNG"
-              alt="DEVNTOM Solutions"
-              className="h-20 w-auto select-none rounded-full"
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.65,
-                delay: 0.3,
-                ease: [0.34, 1.4, 0.64, 1],
-              }}
+            {/* Ambient Backlight Glow */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: [0, 0.4, 0.25], scale: [0.5, 1.2, 1] }}
+              transition={{ duration: 2, ease: "easeOut" }}
+              className="absolute w-80 h-80 rounded-full bg-gradient-to-tr from-blue-600/30 via-cyan-500/20 to-indigo-600/30 blur-3xl"
             />
 
-            <div className="overflow-hidden">
-              <motion.h1
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
+            {/* Logo Wrapper with SVG Loading Ring */}
+            <div className="relative flex items-center justify-center">
+              {/* Rotating Outer Glow Arc */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 opacity-20 blur-sm"
+              />
+
+              {/* Animated Progress Ring */}
+              <svg 
+                className="absolute -inset-3 w-[calc(100%+24px)] h-[calc(100%+24px)] -rotate-90 pointer-events-none" 
+                viewBox="0 0 100 100"
+              >
+                <defs>
+                  <linearGradient id="logoRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#2563EB" />
+                    <stop offset="50%" stopColor="#38BDF8" />
+                    <stop offset="100%" stopColor="#6366F1" />
+                  </linearGradient>
+                </defs>
+
+                {/* Subtle Track Path */}
+                <circle 
+                  cx="50" 
+                  cy="50" 
+                  r="45" 
+                  stroke="#1E293B" 
+                  strokeWidth="2.5" 
+                  fill="none" 
+                />
+
+                {/* Animated Draw Ring */}
+                <motion.circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="url(#logoRingGradient)"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{
+                    duration: 1.5,
+                    delay: 0.3,
+                    ease: [0.65, 0, 0.35, 1],
+                  }}
+                />
+              </svg>
+
+              {/* Center Logo Circle */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{
-                  duration: 0.75,
-                  delay: 1.05,
-                  ease: [0.76, 0, 0.24, 1],
+                  duration: 0.8,
+                  delay: 0.1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="relative z-10 flex items-center justify-center h-24 w-24 rounded-full bg-slate-900 ring-1 ring-white/10 shadow-2xl overflow-hidden"
+              >
+                <img
+                  src="/logosign.PNG"
+                  alt="DEVNTOM Solutions"
+                  className="h-full w-full object-cover rounded-full select-none"
+                />
+              </motion.div>
+            </div>
+
+            {/* Brand Title with Gradient Text */}
+            <div className="overflow-hidden pb-1 px-4">
+              <motion.h1
+                initial={{ y: "120%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.85,
+                  delay: 1.1,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
                 className="
-        text-[#2563EB]
-        text-[clamp(1.4rem,3vw,2.2rem)]
-        font-light
-        uppercase
-        tracking-[0.28em]
-      "
+                  text-transparent bg-clip-text 
+                  bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300
+                  text-[clamp(1.3rem,3.2vw,2.3rem)]
+                  font-semibold
+                  uppercase
+                  tracking-[0.28em]
+                  text-center
+                "
               >
                 DEVNTOM SOLUTIONS
               </motion.h1>
             </div>
 
+            {/* Subtitle Tagline */}
             <div className="overflow-hidden">
-              <motion.p
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
+              <motion.div
+                initial={{ y: "120%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{
-                  duration: 0.7,
-                  delay: 1.38,
-                  ease: [0.76, 0, 0.24, 1],
+                  duration: 0.8,
+                  delay: 1.4,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
-                className="
-        text-[#60A5FA]
-        text-[11px]
-        uppercase
-        tracking-[0.35em]
-        font-extralight
-      "
+                className="flex items-center gap-3"
               >
-                Where Systems Become Strategy
-              </motion.p>
+                <span className="h-[1px] w-6 bg-gradient-to-r from-transparent to-blue-500/50" />
+                <p className="
+                  text-slate-400
+                  text-[10px] sm:text-[11px]
+                  uppercase
+                  tracking-[0.38em]
+                  font-light
+                  text-center
+                ">
+                  Where Systems Become Strategy
+                </p>
+                <span className="h-[1px] w-6 bg-gradient-to-l from-transparent to-blue-500/50" />
+              </motion.div>
             </div>
           </motion.div>
         </div>

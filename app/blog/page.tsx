@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import {
   getAllPosts,
@@ -43,32 +44,26 @@ export const metadata: Metadata = {
   },
 };
 
+// --- SEO SCHEMAS ---
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "DEVNTOM Solutions",
   url: "https://devntomsolutions.com",
   logo: "https://devntomsolutions.com/images/logo.png",
-  sameAs: [
-    "https://linkedin.com/company/devntom",
-    "https://twitter.com/devntom",
-  ],
+  sameAs: ["https://linkedin.com/company/devntom", "https://twitter.com/devntom"],
 };
 
 const blogListingSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
   name: "DEVNTOM Solutions Blog",
-  description:
-    "Expert insights on AI automation, custom software development, website development, and digital marketing.",
+  description: "Expert insights on AI automation, custom software development, website development, and digital marketing.",
   url: "https://devntomsolutions.com/blog",
   publisher: {
     "@type": "Organization",
     name: "DEVNTOM Solutions",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://devntomsolutions.com/images/logo.png",
-    },
+    logo: { "@type": "ImageObject", url: "https://devntomsolutions.com/images/logo.png" },
   },
 };
 
@@ -128,120 +123,78 @@ const faqSchema = {
 };
 
 const SERVICES = [
-  {
-    name: "Website Development",
-    url: "/services/website-development",
-    description:
-      "Fast, SEO-optimized websites and web applications built for business growth.",
-    icon: "🌐",
-  },
-  {
-    name: "Digital Marketing",
-    url: "/services/digital-marketing",
-    description:
-      "SEO, content marketing, and paid acquisition that drives qualified leads.",
-    icon: "📈",
-  },
-  {
-    name: "Software Development",
-    url: "/services/software-development",
-    description:
-      "Custom CRM, ERP, and business software tailored to your workflows.",
-    icon: "⚙️",
-  },
-  {
-    name: "App Development",
-    url: "/services/app-development",
-    description:
-      "Cross-platform iOS and Android apps from MVP to enterprise scale.",
-    icon: "📱",
-  },
-  {
-    name: "UI/UX Design",
-    url: "/services/uiux-design",
-    description:
-      "Conversion-focused design that reduces friction and drives action.",
-    icon: "🎨",
-  },
-  {
-    name: "AI Automation & Chatbots",
-    url: "/services/ai-automation",
-    description:
-      "AI-powered automation, chatbots, and workflow engines that scale your team.",
-    icon: "🤖",
-  },
+  { name: "Website Development", url: "/services/website-development", description: "Fast, SEO-optimized websites and web applications built for business growth." },
+  { name: "Digital Marketing", url: "/services/digital-marketing", description: "SEO, content marketing, and paid acquisition that drives qualified leads." },
+  { name: "Software Development", url: "/services/software-development", description: "Custom CRM, ERP, and business software tailored to your workflows." },
+  { name: "App Development", url: "/services/app-development", description: "Cross-platform iOS and Android apps from MVP to enterprise scale." },
+  { name: "UI/UX Design", url: "/services/uiux-design", description: "Conversion-focused design that reduces friction and drives action." },
+  { name: "AI Automation & Chatbots", url: "/services/ai-automation", description: "AI-powered automation, chatbots, and workflow engines that scale your team." },
 ];
 
 const RESOURCES = [
-  {
-    title: "AI ROI Calculator",
-    description:
-      "Estimate the annual savings your business can achieve through AI automation.",
-    href: "/tools/ai-roi-calculator",
-    type: "Calculator",
-  },
-  {
-    title: "Website Cost Calculator",
-    description:
-      "Get an instant estimate for your website project based on features and scale.",
-    href: "/tools/website-cost-calculator",
-    type: "Calculator",
-  },
-  {
-    title: "CRM Planning Guide",
-    description:
-      "A step-by-step framework for planning, scoping, and evaluating a CRM project.",
-    href: "/guides/crm-planning-guide",
-    type: "Guide",
-  },
-  {
-    title: "SEO Audit Checklist",
-    description:
-      "A 50-point technical and content SEO checklist for business websites.",
-    href: "/guides/seo-audit-checklist",
-    type: "Checklist",
-  },
+  { title: "AI ROI Calculator", description: "Estimate the annual savings your business can achieve through AI automation.", href: "/tools/ai-roi-calculator", type: "Calculator" },
+  { title: "Website Cost Calculator", description: "Get an instant estimate for your website project based on features and scale.", href: "/tools/website-cost-calculator", type: "Calculator" },
+  { title: "CRM Planning Guide", description: "A step-by-step framework for planning, scoping, and evaluating a CRM project.", href: "/guides/crm-planning-guide", type: "Guide" },
+  { title: "SEO Audit Checklist", description: "A 50-point technical and content SEO checklist for business websites.", href: "/guides/seo-audit-checklist", type: "Checklist" },
 ];
 
+// High-quality relevant CDN fallbacks via Unsplash
+function getCategoryFallbackImage(category: string): string {
+  const map: Record<string, string> = {
+    "AI Automation": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop", // Neural networks/AI
+    "Website Development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop", // Code/Laptop
+    "Software Development": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop", // Server room/Backend
+    "App Development": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1000&auto=format&fit=crop", // Mobile device
+    "UI/UX Design": "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop", // Design wireframes/color
+    "Digital Marketing": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop", // Charts/Analytics
+  };
+  return map[category] || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop"; // Earth/Global tech
+}
+
+// --- REFACTORED COMPONENT CARD ---
 function ArticleCard({ post, variant = "default" }: { post: BlogPost; variant?: "default" | "featured" | "compact" }) {
+  const coverImage = post.coverImage || getCategoryFallbackImage(post.category);
+
   if (variant === "featured") {
     return (
-      <article className="group relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-        <div className="aspect-[16/9] bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-700 relative overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-6xl opacity-20">{
-              post.category === "AI Automation" ? "🤖" :
-              post.category === "Website Development" ? "🌐" :
-              post.category === "Software Development" ? "⚙️" :
-              post.category === "App Development" ? "📱" :
-              post.category === "UI/UX Design" ? "🎨" :
-              post.category === "Digital Marketing" ? "📈" : "💼"
-            }</span>
-          </div>
-          <div className="absolute top-4 left-4">
-            <span className="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+      <article className="group relative bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(37,99,235,0.15)] transition-all duration-500 flex flex-col h-full">
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-950">
+          <Image
+            src={coverImage}
+            alt={post.title}
+            fill
+            unoptimized // Bypasses next.config.js domain restriction for external CDN links
+            className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-90"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+          <div className="absolute top-4 left-4 z-10">
+            <span className="bg-blue-600 text-white text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
               {post.category}
             </span>
           </div>
         </div>
-        <div className="p-6">
-          <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
-            <span>{new Date(post.publishDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-            <span>·</span>
+        <div className="p-6 md:p-8 flex flex-col flex-1 bg-neutral-900 relative z-10">
+          <div className="flex items-center gap-3 text-[11px] font-mono text-neutral-400 mb-4 uppercase tracking-wider">
+            <time dateTime={post.publishDate}>
+              {new Date(post.publishDate).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })}
+            </time>
+            <span className="w-1 h-1 rounded-full bg-neutral-700" />
             <span>{post.readingTime} min read</span>
           </div>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
-            <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors line-clamp-3 leading-snug">
+            <Link href={`/blog/${post.slug}`} className="before:absolute before:inset-0">
+              {post.title}
+            </Link>
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 line-clamp-3">
+          <p className="text-sm text-neutral-400 mb-8 line-clamp-3 leading-relaxed">
             {post.excerpt}
           </p>
-          <Link
-            href={`/blog/${post.slug}`}
-            className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:gap-2 transition-all"
-          >
-            Read article <span aria-hidden="true">→</span>
-          </Link>
+          <div className="mt-auto flex items-center justify-between border-t border-neutral-800 pt-5">
+            <span className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest group-hover:text-blue-400 transition-colors">
+              Access Document <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </span>
+          </div>
         </div>
       </article>
     );
@@ -249,23 +202,22 @@ function ArticleCard({ post, variant = "default" }: { post: BlogPost; variant?: 
 
   if (variant === "compact") {
     return (
-      <article className="group flex gap-4 py-4 border-b border-gray-100 dark:border-gray-800 last:border-0">
-        <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-700 flex items-center justify-center text-2xl">
-          {post.category === "AI Automation" ? "🤖" :
-           post.category === "Website Development" ? "🌐" :
-           post.category === "Software Development" ? "⚙️" :
-           post.category === "App Development" ? "📱" :
-           post.category === "UI/UX Design" ? "🎨" :
-           post.category === "Digital Marketing" ? "📈" : "💼"}
+      <article className="group flex gap-5 py-4 items-center border-b border-neutral-200 dark:border-neutral-800 last:border-0 relative">
+        <div className="relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+          <Image
+            src={coverImage}
+            alt={post.title}
+            fill
+            unoptimized
+            className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-110"
+          />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">{post.category}</span>
-            <span className="text-xs text-gray-400">·</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">{post.readingTime} min</span>
-          </div>
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
-            <Link href={`/blog/${post.slug}`} className="line-clamp-2">{post.title}</Link>
+          <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest block mb-1.5">
+            {post.category}
+          </span>
+          <h4 className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
+            <Link href={`/blog/${post.slug}`} className="before:absolute before:inset-0">{post.title}</Link>
           </h4>
         </div>
       </article>
@@ -273,156 +225,148 @@ function ArticleCard({ post, variant = "default" }: { post: BlogPost; variant?: 
   }
 
   return (
-    <article className="group bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 hover:shadow-lg hover:border-blue-100 dark:hover:border-blue-900 transition-all duration-200">
-      <div className="flex items-center gap-2 mb-3">
-        <span className="inline-block bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
-          {post.category}
-        </span>
-        <span className="text-xs text-gray-400">{post.readingTime} min read</span>
+    <article className="group bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-neutral-200/50 hover:border-neutral-300 transition-all duration-300 flex flex-col h-full relative">
+      <div className="relative aspect-[16/9] w-full bg-neutral-100 overflow-hidden">
+        <Image
+          src={coverImage}
+          alt={post.title}
+          fill
+          unoptimized
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
       </div>
-      <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
-        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-      </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3 line-clamp-2">
-        {post.excerpt}
-      </p>
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-400">
-          {new Date(post.publishDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-        </span>
-        <Link
-          href={`/blog/${post.slug}`}
-          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
-        >
-          Read →
-        </Link>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center justify-between mb-4">
+          <span className="bg-neutral-100 text-neutral-700 text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-md">
+            {post.category}
+          </span>
+          <span className="text-[11px] font-mono text-neutral-400">{post.readingTime} min read</span>
+        </div>
+        <h3 className="text-lg font-bold text-neutral-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+          <Link href={`/blog/${post.slug}`} className="before:absolute before:inset-0">{post.title}</Link>
+        </h3>
+        <p className="text-sm text-neutral-500 line-clamp-3 leading-relaxed mb-6">
+          {post.excerpt}
+        </p>
+        <div className="mt-auto pt-4 border-t border-neutral-100 flex items-center justify-between text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
+          <time dateTime={post.publishDate}>
+            {new Date(post.publishDate).toLocaleDateString("en-US", { month: "short", day: "2-digit" })}
+          </time>
+          <span className="font-bold text-blue-600 group-hover:text-blue-700 flex items-center gap-1 transition-colors">
+            Read <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </span>
+        </div>
       </div>
     </article>
   );
 }
 
+// --- MAIN SERVER COMPONENT PAGE ---
 export default function BlogPage() {
   const allPosts = getAllPosts();
   const featuredPosts = getFeaturedPosts();
   const popularPosts = getPopularPosts();
-  const latestPosts = allPosts.slice(0, 9);
+  const latestPosts = allPosts.slice(0, 8);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListingSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListingSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <main className="min-h-screen antialiased bg-neutral-50 selection:bg-blue-500 selection:text-white">
 
-        {/* ── HERO ── */}
-        <section className="relative bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white to-indigo-50/30 dark:from-blue-950/20 dark:via-gray-900 dark:to-indigo-950/10 pointer-events-none" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-full px-4 py-1.5 text-sm font-medium text-blue-700 dark:text-blue-300 mb-6">
-                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                {allPosts.length} Articles Published
-              </div>
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight mb-6">
-                Insights for Businesses That Build with Technology
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl">
-                Practical guides on AI automation, custom software, website development, app development, UI/UX design, and digital marketing — written by DEVNTOM's senior consultants.
-              </p>
+        {/* SECTION 1: CENTERED HERO (DEEP DARK INDUSTRIAL) */}
+        <section className="relative bg-neutral-950 text-white border-b border-neutral-900 overflow-hidden py-24 lg:py-36 flex flex-col items-center justify-center text-center">
+          {/* Subtle Grid Background Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_center,transparent_20%,#0a0a0a_100%)] pointer-events-none" />
+          
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 bg-neutral-900/80 backdrop-blur-sm border border-neutral-800 rounded-full px-4 py-1.5 text-[11px] font-mono uppercase text-neutral-300 mb-8 tracking-widest shadow-xl">
+              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+              {allPosts.length} Industrial Intelligence Deep-Dives
+            </div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-100 to-neutral-500 max-w-4xl mx-auto">
+              Insights for Businesses Building with Technology
+            </h1>
+            
+            <p className="text-lg md:text-xl text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto font-medium">
+              Practical blueprint guides mapping AI automation frameworks, modern bespoke software, systems performance, and conversion engineering.
+            </p>
 
-              {/* Search */}
-              <form action="/blog/search" method="GET" className="flex gap-3 max-w-xl mb-8">
-                <input
-                  type="search"
-                  name="q"
-                  placeholder="Search articles, topics, technologies…"
-                  className="flex-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors"
-                >
-                  Search
-                </button>
-              </form>
+            {/* Centered Search Bar */}
+            <form action="/blog/search" method="GET" className="flex flex-col sm:flex-row gap-3 w-full max-w-xl mx-auto mb-12 shadow-2xl">
+              <input
+                type="search"
+                name="q"
+                required
+                placeholder="Search architectures, tooling, or metrics..."
+                className="flex-1 bg-neutral-900 border border-neutral-700 rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              />
+              <button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white text-xs uppercase tracking-widest font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
+                Search
+              </button>
+            </form>
 
-              {/* Category Filters */}
-              <div className="flex flex-wrap gap-2">
+            {/* Centered Filters */}
+            <div className="flex flex-wrap justify-center gap-2.5 items-center max-w-3xl mx-auto">
+              <Link href="/blog" className="bg-white text-neutral-950 text-[11px] font-mono uppercase font-bold tracking-widest px-5 py-2 rounded-full hover:bg-neutral-200 transition-colors shadow-lg">
+                All Feed
+              </Link>
+              {BLOG_CATEGORIES.map((cat) => (
                 <Link
-                  href="/blog"
-                  className="bg-blue-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full hover:bg-blue-700 transition-colors"
+                  key={cat}
+                  href={`/blog?category=${encodeURIComponent(cat)}`}
+                  className="bg-neutral-900/50 backdrop-blur-md border border-neutral-700 text-neutral-300 text-[11px] font-mono uppercase font-semibold tracking-widest px-5 py-2 rounded-full hover:bg-neutral-800 hover:border-neutral-500 hover:text-white transition-all shadow-lg"
                 >
-                  All
+                  {cat}
                 </Link>
-                {BLOG_CATEGORIES.map((cat) => (
-                  <Link
-                    key={cat}
-                    href={`/blog?category=${encodeURIComponent(cat)}`}
-                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium px-3.5 py-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950 hover:border-blue-200 dark:hover:border-blue-800 hover:text-blue-700 dark:hover:text-blue-300 transition-all"
-                  >
-                    {cat}
-                  </Link>
-                ))}
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 2: FEATURED ARTICLES (DARK BACKGROUND CONTINUED) */}
+        <section className="bg-neutral-950 text-white pb-24 lg:pb-32 border-b border-neutral-900 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 border-b border-neutral-800 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h2 className="text-[11px] font-mono font-bold tracking-widest text-blue-500 uppercase mb-2">01 / Editorial Selections</h2>
+                <p className="text-3xl font-black text-white tracking-tight">Featured Architecture Manuals</p>
               </div>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredPosts.map((post) => (
+                <ArticleCard key={post.slug} post={post} variant="featured" />
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* ── FEATURED ARTICLES ── */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Featured Articles</h2>
-              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">High-impact guides handpicked by our editorial team</p>
+        {/* SECTION 3: DOMAINS/CATEGORIES GRID (CRISP LIGHT MODE) */}
+        <section className="bg-white text-neutral-900 border-b border-neutral-200 py-24 relative overflow-hidden">
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neutral-300 to-transparent opacity-50" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-14 text-center">
+              <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-2">02 / Segregated Modules</h2>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tight text-neutral-900">Browse Capability Domains</h3>
             </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredPosts.map((post) => (
-              <ArticleCard key={post.slug} post={post} variant="featured" />
-            ))}
-          </div>
-        </section>
-
-        {/* ── CATEGORIES ── */}
-        <section className="bg-white dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Browse by Category</h2>
-              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Deep expertise across every dimension of technology and growth</p>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
               {BLOG_CATEGORIES.map((cat) => {
                 const count = getPostsByCategory(cat).length;
-                const icon =
-                  cat === "AI Automation" ? "🤖" :
-                  cat === "Website Development" ? "🌐" :
-                  cat === "Software Development" ? "⚙️" :
-                  cat === "App Development" ? "📱" :
-                  cat === "UI/UX Design" ? "🎨" :
-                  cat === "Digital Marketing" ? "📈" :
-                  cat === "Business Growth" ? "🚀" : "📊";
                 return (
                   <Link
                     key={cat}
                     href={`/blog?category=${encodeURIComponent(cat)}`}
-                    className="group p-5 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-all"
+                    className="group p-6 rounded-2xl bg-neutral-50 border border-neutral-200 hover:border-blue-500 hover:shadow-lg transition-all flex flex-col justify-center items-center text-center h-40"
                   >
-                    <div className="text-3xl mb-3">{icon}</div>
-                    <div className="font-semibold text-sm text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors mb-1">
+                    <div className="font-bold text-sm text-neutral-900 group-hover:text-blue-600 transition-colors leading-tight mb-3">
                       {cat}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {count} {count === 1 ? "article" : "articles"}
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 font-bold bg-white px-3 py-1 rounded border border-neutral-200 group-hover:border-blue-200 group-hover:text-blue-500 transition-colors">
+                      {count} Docs
                     </div>
                   </Link>
                 );
@@ -431,94 +375,98 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* ── LATEST + POPULAR (2-column layout) ── */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        {/* SECTION 4: MAIN FEED + SIDEBAR (LIGHT TEXTURED BACKGROUND) */}
+        <section className="bg-neutral-50 text-neutral-900 py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
-            {/* Latest Articles */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Latest Articles</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {latestPosts.map((post) => (
-                  <ArticleCard key={post.slug} post={post} />
-                ))}
-              </div>
-            </div>
-
-            {/* Popular + Newsletter */}
-            <div className="space-y-8">
-              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">Popular Articles</h2>
-                {popularPosts.map((post) => (
-                  <ArticleCard key={post.slug} post={post} variant="compact" />
-                ))}
+              {/* Main Feed Column */}
+              <div className="lg:col-span-8">
+                <div className="mb-10 border-b border-neutral-200 pb-6">
+                  <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-2">03 / Continuous Feed</h2>
+                  <h3 className="text-3xl font-black tracking-tight text-neutral-900">Latest Intelligence Docs</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  {latestPosts.map((post) => (
+                    <ArticleCard key={post.slug} post={post} />
+                  ))}
+                </div>
               </div>
 
-              {/* Newsletter */}
-              <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
-                <div className="text-2xl mb-3">📬</div>
-                <h3 className="text-lg font-bold mb-2">Stay ahead of the curve</h3>
-                <p className="text-blue-100 text-sm mb-4 leading-relaxed">
-                  Weekly insights on AI, software development, and digital marketing delivered to your inbox. No spam, unsubscribe anytime.
-                </p>
-                <form action="/api/newsletter" method="POST" className="space-y-3">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your email address"
-                    required
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/40"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full bg-white text-blue-700 font-bold px-4 py-3 rounded-xl text-sm hover:bg-blue-50 transition-colors"
-                  >
-                    Subscribe Free
-                  </button>
-                </form>
-              </div>
+              {/* Sidebar Components */}
+              <aside className="lg:col-span-4 space-y-10 lg:sticky lg:top-10">
+                {/* Popular Read Block */}
+                <div className="bg-white border border-neutral-200 rounded-2xl p-6 md:p-8 shadow-sm">
+                  <h3 className="text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-6 border-b border-neutral-100 pb-4">High-Velocity Artifacts</h3>
+                  <div className="flex flex-col gap-2">
+                    {popularPosts.map((post) => (
+                      <ArticleCard key={post.slug} post={post} variant="compact" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Technical Newsletter Inset */}
+                <div className="bg-neutral-950 text-white rounded-2xl p-6 md:p-8 border border-neutral-900 relative overflow-hidden shadow-2xl">
+                  <div className="absolute top-0 right-0 p-4 opacity-10">
+                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="m3 15 2 2 4-4" /></svg>
+                  </div>
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-blue-500 mb-3 relative z-10">Systems Briefings</h4>
+                  <p className="text-sm text-neutral-300 leading-relaxed mb-6 relative z-10 font-medium">
+                    Receive programmatic technology analysis directly to your communication loop. Weekly frequency.
+                  </p>
+                  <form action="/api/newsletter" method="POST" className="space-y-3 relative z-10">
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Enter corporate email"
+                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    />
+                    <button type="submit" className="w-full bg-white hover:bg-neutral-200 text-neutral-950 text-xs font-bold uppercase tracking-widest py-3.5 rounded-xl transition-colors">
+                      Subscribe Terminal
+                    </button>
+                  </form>
+                </div>
+              </aside>
+
             </div>
           </div>
         </section>
 
-        {/* ── TOPIC CLUSTERS ── */}
-        <section className="bg-white dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Topic Clusters</h2>
-              <p className="text-gray-500 dark:text-gray-400">
-                We've organized our content into deep topic clusters — so you can explore every angle of a subject you care about.
+        {/* SECTION 5: TOPIC CLUSTERS (DEEP DARK MATRIX STYLE) */}
+        <section className="bg-neutral-950 text-white border-y border-neutral-900 py-24 lg:py-32 relative overflow-hidden">
+           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-5 mix-blend-overlay" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="mb-16 max-w-2xl">
+              <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-blue-500 mb-2">04 / Structured Matrices</h2>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tight text-white mb-4">Topic Network Vaults</h3>
+              <p className="text-lg text-neutral-400 font-medium">
+                Comprehensive structural directories evaluating programmatic system components holistically.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {TOPIC_CLUSTERS.map((cluster) => {
                 const posts = cluster.slugs
                   .map((slug) => allPosts.find((p) => p.slug === slug))
                   .filter(Boolean) as BlogPost[];
                 return (
-                  <div key={cluster.name} className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 hover:shadow-md transition-shadow">
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">{cluster.name}</h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">{cluster.description}</p>
-                    <ul className="space-y-2 mb-5">
-                      {posts.slice(0, 4).map((p) => (
-                        <li key={p.slug}>
-                          <Link
-                            href={`/blog/${p.slug}`}
-                            className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-start gap-1.5"
-                          >
-                            <span className="text-gray-300 dark:text-gray-600 mt-0.5">→</span>
-                            <span className="leading-snug">{p.title}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                    <Link
-                      href={cluster.serviceUrl}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
-                    >
-                      View service →
+                  <div key={cluster.name} className="bg-neutral-900/80 backdrop-blur-sm border border-neutral-800 rounded-2xl p-8 hover:border-neutral-600 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                      <h4 className="font-bold text-xl text-white mb-3 tracking-tight group-hover:text-blue-400 transition-colors">{cluster.name}</h4>
+                      <p className="text-sm text-neutral-400 mb-8 leading-relaxed line-clamp-2">{cluster.description}</p>
+                      <ul className="space-y-4 mb-8">
+                        {posts.slice(0, 3).map((p) => (
+                          <li key={p.slug} className="border-b border-neutral-800/80 pb-3 last:border-0 last:pb-0">
+                            <Link href={`/blog/${p.slug}`} className="text-sm font-medium text-neutral-300 hover:text-white transition-colors flex items-start gap-3">
+                              <span className="text-blue-500 font-mono text-xs mt-0.5">↳</span>
+                              <span className="leading-snug line-clamp-2">{p.title}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <Link href={cluster.serviceUrl} className="inline-flex items-center justify-between w-full text-xs font-mono font-bold uppercase tracking-widest text-neutral-400 hover:text-blue-400 transition-colors pt-5 border-t border-neutral-800">
+                      Examine Blueprint <span className="text-lg leading-none">→</span>
                     </Link>
                   </div>
                 );
@@ -527,172 +475,95 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* ── RESOURCES ── */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Free Resources</h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              Practical tools and guides to help you make better technology and marketing decisions.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {RESOURCES.map((resource) => (
-              <Link
-                key={resource.title}
-                href={resource.href}
-                className="group bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all"
-              >
-                <div className="inline-block bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs font-bold px-2.5 py-1 rounded-lg mb-3">
-                  {resource.type}
-                </div>
-                <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {resource.title}
-                </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                  {resource.description}
-                </p>
-              </Link>
-            ))}
+        {/* SECTION 6: FREE RESOURCES (CLEAN LIGHT CARDS) */}
+        <section className="bg-white text-neutral-900 py-24 border-b border-neutral-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-14 text-center">
+              <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-2">05 / Calculators & Checklists</h2>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tight text-neutral-900">Functional Utilities</h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {RESOURCES.map((resource) => (
+                <Link
+                  key={resource.title}
+                  href={resource.href}
+                  className="group bg-neutral-50 border border-neutral-200 rounded-2xl p-8 hover:bg-white hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 flex flex-col h-full"
+                >
+                  <div className="flex-1">
+                    <span className="inline-block bg-blue-100 text-blue-700 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-md mb-5">
+                      {resource.type}
+                    </span>
+                    <h4 className="font-bold text-neutral-900 text-lg mb-3 group-hover:text-blue-600 transition-colors leading-tight">
+                      {resource.title}
+                    </h4>
+                    <p className="text-sm text-neutral-500 leading-relaxed">
+                      {resource.description}
+                    </p>
+                  </div>
+                  <div className="mt-8 pt-4 border-t border-neutral-200 flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-widest group-hover:text-blue-600 transition-colors">
+                      Initialize
+                    </span>
+                    <span className="text-neutral-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all">→</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* ── LONG-FORM SEO CONTENT ── */}
-        <section className="bg-white dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-10">
-              Technology Strategy for Growing Businesses
-            </h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
+        {/* SECTION 7: LONG-FORM SEO DEEP ARCHITECTURE PANEL (LIGHT SPLIT LAYOUT) */}
+        <section className="bg-neutral-50 text-neutral-900 py-24 lg:py-32 border-b border-neutral-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mb-16">
+              <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-2">Strategic Dossier</h2>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tight text-neutral-900 mb-6">Enterprise Automation & Tech Architectures</h3>
+              <p className="text-lg text-neutral-600 leading-relaxed font-medium">Core infrastructural principles governing modern digital enterprise scalability.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                  Why Businesses Invest in Custom Software
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  Off-the-shelf SaaS products are built for the average business. Custom software is built for your business — your workflows, your data, your customers, your competitive advantage. For companies with genuinely unique processes, custom software delivers efficiency gains that no subscription tool can match.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  The ROI case is compelling: a $100,000 custom software investment that saves 3 staff-hours per day pays back in under 18 months. Beyond cost savings, custom software becomes an asset — an owned system that scales with the business and compounds in value year over year.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  The most successful custom software projects start with a well-scoped MVP, validate with real users, and expand iteratively. DEVNTOM's <Link href="/services/software-development" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">software development services</Link> follow this approach for every engagement.
+                <h4 className="text-lg font-bold text-neutral-900 mb-4 border-l-2 border-blue-500 pl-4">Bespoke Systems Optimization</h4>
+                <p className="text-sm text-neutral-600 leading-relaxed">
+                  Off-the-shelf SaaS infrastructures introduces architecture compromises. Bespoke systems integration honors explicitly mapped corporate procedures, transactional safety constraints, and distinct user environments. Scalability functions natively without subscription tax penalties.
                 </p>
               </div>
-
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                  Benefits of AI Automation for Operations
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  AI automation removes the bottleneck between business volume and team capacity. Without automation, growth requires proportional hiring. With it, the same team handles 3x–10x the volume with higher accuracy and lower cost per transaction.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  In customer support, AI handles 50–80% of inbound inquiries without human escalation. In sales, AI qualifies leads, updates CRM records, and drafts follow-ups — giving reps hours back for actual selling. In operations, AI processes invoices, generates reports, and manages scheduling at machine speed.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  The companies that implement <Link href="/services/ai-automation" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">AI automation solutions</Link> in 2026 will have a permanent structural cost advantage over those that don't.
+                <h4 className="text-lg font-bold text-neutral-900 mb-4 border-l-2 border-blue-500 pl-4">Agentic Workflow Automation</h4>
+                <p className="text-sm text-neutral-600 leading-relaxed">
+                  Deep intelligence deployment models isolate bottlenecks inside standard manual data handling sequences. Offloading repeatable pipelines to containerized orchestrators expands transactional bandwidth capacity tenfold without expanding systemic administrative overhead constraints.
                 </p>
               </div>
-
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                  Modern Website Development Strategies
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  A business website in 2026 is a sales and marketing system, not a digital brochure. The best business websites are built on performance-first frameworks like Next.js, optimized for Core Web Vitals, structured for semantic SEO, and instrumented with analytics that tie page performance to pipeline.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  Technical architecture decisions made at build time determine SEO ceiling for years. Server-side rendering, clean URL structure, schema markup, and image optimization are not afterthoughts — they are the foundation of organic traffic growth.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  Our <Link href="/services/website-development" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">website development services</Link> include technical SEO architecture, performance optimization, and conversion rate design as standard deliverables.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                  Digital Marketing for Predictable Growth
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  Most businesses rely on referrals for growth — which is unpredictable and unscalable. Digital marketing replaces referral dependency with a systematic customer acquisition engine: SEO drives organic traffic, content builds trust at scale, paid search captures high-intent buyers, and email nurtures leads to close.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  The compounding nature of SEO means that investment made today pays dividends for years. A page that ranks #1 for a commercial keyword generates leads every day with zero incremental spend.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  DEVNTOM's <Link href="/services/digital-marketing" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">digital marketing services</Link> build integrated systems that deliver predictable, scalable pipeline.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                  Mobile App Development Trends in 2026
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  Cross-platform frameworks (React Native, Flutter) now dominate mobile app development for business applications. The performance gap with native development has narrowed significantly — most B2B apps achieve full feature parity with cross-platform approaches at 60–70% of the cost of dual native development.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  AI-native mobile apps — apps with embedded AI features like natural language search, predictive recommendations, and intelligent automation — are becoming the standard expectation. Our <Link href="/services/app-development" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">app development services</Link> include AI feature integration as a core capability.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                  UI/UX Design Best Practices
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                  Good UI/UX design is measurable. Conversion rates, task completion rates, time-on-page, bounce rates, and support ticket volume are all directly impacted by design decisions. The best design teams work from behavior data, not aesthetic opinion.
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  Mobile-first design, clear visual hierarchy, accessible typography, and friction-minimized conversion flows are not optional in 2026 — they are baseline requirements for any competitive business website or application. Explore our <Link href="/services/uiux-design" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">UI/UX design services</Link> to see how design drives measurable business outcomes.
+                <h4 className="text-lg font-bold text-neutral-900 mb-4 border-l-2 border-blue-500 pl-4">Modern Core Vitals Strategy</h4>
+                <p className="text-sm text-neutral-600 leading-relaxed">
+                  Web structures execute as performance-first client engines built upon pre-rendered nodes. Decoupled frameworks like Next.js facilitate rapid rendering speeds, native semantic markup indexing patterns, and instantaneous data layer distribution configurations globally.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── FAQ ── */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Frequently Asked Questions</h2>
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
-              Common questions about AI automation, software development, website development, and digital marketing.
-            </p>
-            <div className="space-y-5">
+        {/* SECTION 8: FAQ ACCORDIONS (CLEAN WHITE BLOCK) */}
+        <section className="bg-white text-neutral-900 py-24">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-14 text-center">
+              <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-2">Knowledge Query Base</h2>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tight text-neutral-900">Frequently Examined Elements</h3>
+            </div>
+            <div className="space-y-4">
               {[
-                {
-                  q: "What is AI automation?",
-                  a: "AI automation uses artificial intelligence to perform repetitive tasks — answering customer inquiries, qualifying leads, processing documents, generating reports — without human intervention. It allows businesses to scale operations without proportional headcount growth. Modern AI automation can handle complex, multi-step workflows and make nuanced decisions based on context.",
-                },
-                {
-                  q: "What does a software development company do?",
-                  a: "A software development company designs, builds, tests, and maintains custom software systems — including CRM platforms, ERP systems, web applications, mobile apps, customer portals, and internal tools. The goal is software precisely tailored to your business's unique processes, integrations, and growth requirements.",
-                },
-                {
-                  q: "How much does custom software cost?",
-                  a: "Custom software costs range from $25,000 for a simple MVP to $500,000+ for enterprise platforms. Most small-to-mid business software projects (CRM, client portal, workflow tool) cost $40,000–$150,000. Development timeline is typically 3–9 months. The investment typically delivers 3–5x ROI within three years through operational savings and revenue growth.",
-                },
-                {
-                  q: "Why choose Next.js for a business website?",
-                  a: "Next.js delivers server-side rendering, static generation, built-in image optimization, and excellent Core Web Vitals performance. These features make it significantly better for SEO and page speed than plain React, which relies on client-side rendering that search engines index more slowly. Next.js is the professional standard for business websites in 2026.",
-                },
-                {
-                  q: "Why invest in UI/UX design?",
-                  a: "Poor UX design loses revenue every day. Slow pages, confusing navigation, and weak calls-to-action drive visitors away before they convert. Professional UI/UX design typically improves conversion rates by 30–200%. For a website generating 100 leads/month, even a 30% improvement means 30 additional leads per month — often worth $30,000–$300,000 in additional pipeline annually.",
-                },
-                {
-                  q: "What are the benefits of digital marketing?",
-                  a: "Digital marketing builds a measurable, scalable pipeline of qualified leads. SEO delivers compounding organic traffic that grows month over month. Paid search delivers immediate, attributable results. Email marketing generates $36 per $1 spent. Together, digital marketing channels replace unpredictable referral-dependent growth with a systematic customer acquisition engine.",
-                },
+                { q: "What is AI automation?", a: "AI automation uses artificial intelligence to perform repetitive tasks — answering customer inquiries, qualifying leads, processing documents, generating reports — without human intervention. It allows businesses to scale operations without proportional headcount growth." },
+                { q: "What does a software development company do?", a: "A software development company designs, builds, tests, and maintains custom software systems — including CRM platforms, ERP systems, web applications, mobile apps, customer portals, and internal tools." },
+                { q: "How much does custom software cost?", a: "Custom software costs range from $25,000 for a simple MVP to $500,000+ for enterprise platforms. Most small-to-mid business software projects cost $40,000–$150,000. Development timeline is typically 3–9 months." },
+                { q: "Why choose Next.js for a business website?", a: "Next.js delivers server-side rendering, static generation, built-in image optimization, and excellent Core Web Vitals performance. These features make it significantly better for SEO and page speed than plain client-side rendering models." }
               ].map(({ q, a }) => (
-                <details key={q} className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800">
-                  <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm pr-4">{q}</h3>
-                    <span className="text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0">▼</span>
+                <details key={q} className="group bg-neutral-50 border border-neutral-200 rounded-2xl overflow-hidden transition-all duration-300 hover:border-neutral-300">
+                  <summary className="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none font-bold text-neutral-900 text-base md:text-lg">
+                    <span>{q}</span>
+                    <span className="text-blue-500 group-open:rotate-180 transition-transform duration-300 bg-blue-50 w-8 h-8 flex items-center justify-center rounded-full">▼</span>
                   </summary>
-                  <div className="px-5 pb-5">
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{a}</p>
+                  <div className="px-6 md:px-8 pb-8 text-sm md:text-base text-neutral-600 leading-relaxed border-t border-neutral-200/50 pt-4 bg-white">
+                    {a}
                   </div>
                 </details>
               ))}
@@ -700,63 +571,63 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* ── SERVICES ── */}
-        <section className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Explore DEVNTOM Services</h2>
-              <p className="text-gray-500 dark:text-gray-400">
-                From strategy to execution — we build technology that drives measurable business results.
-              </p>
+        {/* SECTION 9: CAPABILITIES ROUTING (DARK INDUSTRIAL PLATES) */}
+        <section className="bg-neutral-950 text-white py-24 lg:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-14 text-center">
+              <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-blue-500 mb-2">System Execution Engines</h2>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tight text-white">Core Capability Outposts</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {SERVICES.map((service) => (
                 <Link
                   key={service.name}
                   href={service.url}
-                  className="group p-6 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md bg-gray-50 dark:bg-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all"
+                  className="group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:bg-neutral-900 hover:border-neutral-600 hover:shadow-[0_0_30px_rgba(255,255,255,0.03)] transition-all duration-300 flex flex-col justify-between min-h-[180px]"
                 >
-                  <div className="text-3xl mb-3">{service.icon}</div>
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
-                    {service.name}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
-                    {service.description}
-                  </p>
-                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">
-                    Learn more →
-                  </span>
+                  <div>
+                    <h4 className="font-bold text-white text-lg mb-3 group-hover:text-blue-400 transition-colors">
+                      {service.name}
+                    </h4>
+                    <p className="text-sm text-neutral-400 leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                  <div className="mt-6 pt-4 border-t border-neutral-800/50 flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-500 group-hover:text-blue-400 transition-colors">
+                      Access Module
+                    </span>
+                    <span className="text-neutral-600 group-hover:text-blue-400 group-hover:translate-x-1 transition-all">→</span>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── NEWSLETTER CTA ── */}
-        <section className="bg-gradient-to-br from-blue-600 to-indigo-700">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-            <h2 className="text-3xl font-extrabold text-white mb-4">
-              Get Weekly Technology Insights
+        {/* SECTION 10: END TERMINAL CALL TO ACTION (CENTERED, DEEP ACCENT) */}
+        <section className="relative bg-gradient-to-b from-neutral-950 to-black border-t border-neutral-900 text-white py-32 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.15),transparent_60%)] pointer-events-none" />
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
+              Synchronize Architectures
             </h2>
-            <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              Join thousands of business leaders who get our weekly insights on AI automation, software strategy, and digital growth.
+            <p className="text-neutral-400 text-lg max-w-xl mx-auto leading-relaxed mb-10 font-medium">
+              Join enterprise executives receiving technical distribution files and performance audits directly to their terminal pipelines.
             </p>
-            <form action="/api/newsletter" method="POST" className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+            <form action="/api/newsletter" method="POST" className="flex flex-col sm:flex-row gap-3 w-full max-w-lg mx-auto shadow-2xl">
               <input
                 type="email"
                 name="email"
-                placeholder="Enter your work email"
                 required
-                className="flex-1 bg-white/10 border border-white/25 rounded-xl px-4 py-3.5 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/40 text-sm"
+                placeholder="Secure institutional email input"
+                className="flex-1 bg-neutral-900/80 backdrop-blur-sm border border-neutral-800 rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               />
-              <button
-                type="submit"
-                className="bg-white text-blue-700 font-bold px-6 py-3.5 rounded-xl text-sm hover:bg-blue-50 transition-colors whitespace-nowrap"
-              >
-                Subscribe Free
+              <button type="submit" className="bg-white hover:bg-neutral-200 text-neutral-950 text-xs uppercase tracking-widest font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                Initialize
               </button>
             </form>
-            <p className="text-blue-200 text-xs mt-4">No spam. Unsubscribe anytime.</p>
+            <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-6">Zero noise transmission. Revocation accessible continuously.</p>
           </div>
         </section>
 
