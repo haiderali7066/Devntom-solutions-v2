@@ -129,12 +129,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon-16x16.png",
+        url: "/sign-rounded.png",
         sizes: "16x16",
         type: "image/png",
       },
       {
-        url: "/favicon-32x32.png",
+        url: "/sign-rounded.png",
         sizes: "32x32",
         type: "image/png",
       },
@@ -144,7 +144,7 @@ export const metadata: Metadata = {
 
     apple: [
       {
-        url: "/apple-touch-icon.png",
+        url: "/sign-rounded.png",
         sizes: "180x180",
         type: "image/png",
       },

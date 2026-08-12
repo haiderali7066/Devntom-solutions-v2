@@ -626,9 +626,9 @@ export default function Navbar() {
           className="flex items-center gap-3 group z-50 flex-shrink-0"
         >
           {/* Wrapper div to strictly enforce the circle */}
-          <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden flex-shrink-0 bg-white">
+          <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden flex-shrink-0 ">
             <Image
-              src="/logosign.PNG" // place your logo inside /public folder
+              src="/sign.png" // place your logo inside /public folder
               alt="Devntom Solutions"
               fill // fill the parent div
               className="object-cover"
