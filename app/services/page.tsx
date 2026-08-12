@@ -1,744 +1,523 @@
-"use client";
-
-import { useRef, useState } from "react";
+import { Metadata } from "next";
 import Link from "next/link";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
-  Globe, Megaphone, Code2, Smartphone, Palette, Bot,
-  ArrowRight, CheckCircle2, ChevronRight, Star,
-  Zap, Shield, Users, BarChart3, MessageCircle,
+  Code2,
+  Layout,
+  Megaphone,
+  ShoppingBag,
+  Server,
+  Smartphone,
+  Bot,
+  Palette,
+  ArrowRight,
+  CheckCircle2,
+  ChevronDown,
+  Sparkles,
+  ShieldCheck,
+  Layers,
+  Cpu,
+  Mail,
+  Phone,
+  MessageCircle,
+  Globe
 } from "lucide-react";
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-const ACCENT = "#0ea5e9";
+// ─── 1. SEO, AEO & GEO METADATA ─────────────────────────────────────────────
 
-const SERVICES = [
-  {
-    id: "website-development",
-    icon: Globe,
-    label: "01",
-    name: "Website Development",
-    tagline: "Built to perform. Designed to convert.",
-    desc: "From landing pages and CMS-powered marketing sites to complex SaaS platforms and e-commerce stores — we build websites that are fast, accessible, and engineered to grow with your business.",
-    features: [
-      "Custom Website Design & Development",
-      "CMS — WordPress, Webflow, Sanity",
-      "E-Commerce (Shopify, WooCommerce)",
-      "Web Application Development",
-      "SaaS Platform Engineering",
-      "Website Maintenance & Support",
-      "SEO-Ready Architecture",
-      "Performance & Core Web Vitals Optimization",
-    ],
-    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Shopify", "WordPress"],
-    color: "#0ea5e9",
-    img: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=900&auto=format&fit=crop&q=80",
-    href: "/services/website-development",
-    stat: { value: "65%", label: "avg. conversion lift" },
+export const metadata: Metadata = {
+  title: "Digital & Software Development Services | DEVNTOM Solutions",
+  description:
+    "End-to-end digital services: Web Development, Mobile Apps, Custom Enterprise Software (CRM/ERP), AI Automation, UI/UX Design, and Digital Marketing. Serving PK, SA, and global markets.",
+  keywords: [
+    "software development services",
+    "web development agency Pakistan",
+    "mobile app development Saudi Arabia",
+    "custom software development US",
+    "AI automation services",
+    "UI UX design agency",
+    "SaaS app development",
+    "digital marketing agency"
+  ].join(", "),
+  alternates: {
+    canonical: "https://devntomsolutions.com/services",
   },
-  {
-    id: "digital-marketing",
-    icon: Megaphone,
-    label: "02",
-    name: "Digital Marketing",
-    tagline: "Grow visibility. Drive revenue.",
-    desc: "Data-first digital marketing across every channel — Google Ads, Meta, SEO, content strategy, and full social media management — engineered to put your brand in front of the right people at the right time.",
-    features: [
-      "Google Ads (Search, Display, Shopping)",
-      "Meta & Instagram Ads",
-      "Search Engine Optimization (SEO)",
-      "Content Strategy & Creation",
-      "Social Media Management",
-      "Email Marketing Campaigns",
-      "Analytics & Conversion Tracking",
-      "Brand Identity & Design",
+  openGraph: {
+    title: "Engineering Enterprise Digital Solutions | DEVNTOM Solutions",
+    description: "Architecting high-performance websites, mobile apps, custom software, and AI pipelines built to scale your business.",
+    url: "https://devntomsolutions.com/services",
+    siteName: "DEVNTOM Solutions",
+    images: [
+      {
+        url: "https://devntomsolutions.com/og-services.jpg",
+        width: 1200,
+        height: 630,
+        alt: "DEVNTOM Solutions Digital Services",
+      },
     ],
-    tech: ["Google Ads", "Meta Ads", "SEMrush", "Ahrefs", "Mailchimp", "Canva Pro", "GA4"],
-    color: "#f59e0b",
-    img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=900&auto=format&fit=crop&q=80",
-    href: "/services/digital-marketing",
-    stat: { value: "3×", label: "avg. organic traffic growth" },
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Software & Digital Services | DEVNTOM Solutions",
+    description: "Custom Web, Mobile, AI, and Software Engineering tailored for enterprise growth.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  other: {
+    "geo.region": "PK, SA, US",
+    "geo.placename": "Lahore, Riyadh",
+  },
+};
+
+// ─── 2. DATA (8 Core Practice Areas) ─────────────────────────────────────────
+
+const services = [
+  {
+    id: "web-development",
+    slug: "/services/website-development",
+    icon: Code2,
+    title: "Web Development",
+    subtitle: "High-Performance Digital Platforms",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    desc: "Stunning, responsive, and blazingly fast websites built with modern frameworks. We deliver secure, SEO-optimized, and conversion-ready web presences.",
+    deliverables: [
+      "Custom Next.js & React Architectures",
+      "Headless CMS & Dynamic Dashboards",
+      "Core Web Vitals & Speed Optimization",
+      "Enterprise Security & SSL Infrastructure"
+    ],
+    badge: "Core Service"
   },
   {
     id: "software-development",
-    icon: Code2,
-    label: "03",
-    name: "Software Development",
-    tagline: "Enterprise systems. Built for scale.",
-    desc: "Custom enterprise software built to replace fragmented workflows — ERP systems, CRMs, internal tools, and complex automation platforms that save time, cut costs, and grow with your organisation.",
-    features: [
-      "Custom ERP Systems",
-      "CRM Development & Integration",
-      "Internal Business Tools",
-      "Workflow Automation Platforms",
-      "Third-Party API Integrations",
-      "Legacy System Modernisation",
-      "Cloud Infrastructure & DevOps",
-      "Security Audits & Compliance",
+    slug: "/services/software-development",
+    icon: Server,
+    title: "Custom Software Solutions",
+    subtitle: "CRM, ERP & Business Systems",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    desc: "Bespoke internal tools, CRMs, ERPs, and management platforms engineered to replace manual spreadsheets and streamline complex business operations.",
+    deliverables: [
+      "Custom Enterprise ERP & CRM Build",
+      "Inventory & POS System Integration",
+      "HRMS & Automated Payroll Portals",
+      "Database Optimization & Cloud Hosting"
     ],
-    tech: ["Python", "Node.js", "PostgreSQL", "Docker", "AWS", "Laravel", "GraphQL"],
-    color: "#8b5cf6",
-    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&auto=format&fit=crop&q=80",
-    href: "/services/software-development",
-    stat: { value: "40%", label: "avg. overhead reduction" },
+    badge: "Enterprise"
   },
   {
-    id: "app-development",
+    id: "mobile-app-development",
+    slug: "/services/mobile-app-development",
     icon: Smartphone,
-    label: "04",
-    name: "App Development",
-    tagline: "iOS. Android. Loved by users.",
-    desc: "Native and cross-platform mobile apps — from polished consumer experiences to complex enterprise apps. We take you from zero to App Store, handling everything from UX through deployment.",
-    features: [
-      "iOS App Development (Swift)",
-      "Android App Development (Kotlin)",
-      "Cross-Platform (React Native, Flutter)",
-      "MVP Development & Rapid Prototyping",
-      "App Store & Play Store Submission",
-      "Push Notifications & Real-time Features",
-      "Offline-First Architecture",
-      "App Maintenance & Version Updates",
+    title: "App Development",
+    subtitle: "iOS, Android & Cross-Platform",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
+    desc: "Native and cross-platform mobile apps built with React Native and Flutter. Smooth performance, offline capability, and intuitive user experiences.",
+    deliverables: [
+      "iOS & Android Mobile Applications",
+      "Cross-Platform Flutter & React Native",
+      "Push Notifications & Real-Time Sync",
+      "App Store & Google Play Publishing"
     ],
-    tech: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "Expo", "Supabase"],
-    color: "#10b981",
-    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&auto=format&fit=crop&q=80",
-    href: "/services/app-development",
-    stat: { value: "10k+", label: "downloads on first launch" },
-  },
-  {
-    id: "uiux-design",
-    icon: Palette,
-    label: "05",
-    name: "UI/UX Design",
-    tagline: "Interfaces users remember.",
-    desc: "User research, information architecture, wireframing, and pixel-perfect design systems — we craft interfaces that feel effortless to use, look unmistakably yours, and perform on every screen.",
-    features: [
-      "User Research & Personas",
-      "Information Architecture",
-      "Wireframing & Low-fi Prototyping",
-      "High-Fidelity UI Design",
-      "Interactive Prototypes",
-      "Design Systems & Component Libraries",
-      "Usability Testing",
-      "Handoff to Development (Figma tokens)",
-    ],
-    tech: ["Figma", "FigJam", "Framer", "Principle", "Maze", "Lottie", "Zeroheight"],
-    color: "#ec4899",
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&auto=format&fit=crop&q=80",
-    href: "/services/uiux-design",
-    stat: { value: "4.9★", label: "avg. client design rating" },
+    badge: "Mobile"
   },
   {
     id: "ai-automation",
+    slug: "/services/ai-automation-chatbots",
     icon: Bot,
-    label: "06",
-    name: "AI Automation & Chatbots",
-    tagline: "Automate the work. Scale the results.",
-    desc: "Intelligent chatbots, LLM-powered tools, and no-code/pro-code automation workflows that eliminate repetitive tasks, reduce support costs, and run your business backend around the clock.",
-    features: [
-      "AI Chatbot Design & Development",
-      "LLM Integration (OpenAI, Claude, Gemini)",
-      "Workflow Automation (n8n, Make, Zapier)",
-      "RAG — Knowledge Base Chatbots",
-      "CRM & Helpdesk AI Assistants",
-      "Lead Qualification Bots",
-      "Voice AI & IVR Systems",
-      "Custom AI Dashboard & Analytics",
+    title: "AI Automation & Chatbots",
+    subtitle: "Intelligent Workflow Pipelines",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    desc: "Empower your business with custom LLM integrations, automated customer support bots, data-scraping pipelines, and predictive workflow automation.",
+    deliverables: [
+      "WhatsApp & Web AI Chatbots",
+      "Custom LLM & OpenAI Integrations",
+      "Automated Document Processing",
+      "Business Process Workflow Automation"
     ],
-    tech: ["OpenAI", "LangChain", "n8n", "Make", "Pinecone", "Supabase", "Python"],
-    color: "#f97316",
-    img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=900&auto=format&fit=crop&q=80",
-    href: "/services/ai-automation",
-    stat: { value: "70%", label: "of queries automated" },
+    badge: "Next-Gen AI"
   },
+  {
+    id: "ui-ux-design",
+    slug: "/services/ui-ux-design",
+    icon: Palette,
+    title: "Branding & UI/UX Design",
+    subtitle: "Product Design & Brand Identity",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
+    desc: "Crafting intuitive digital user experiences and memorable corporate identities. From user journey mapping to high-fidelity Figma design systems.",
+    deliverables: [
+      "User Research & Wireframing",
+      "Interactive Figma Prototypes",
+      "Design Systems & Component Libraries",
+      "Brand Identity & Visual Guidelines"
+    ],
+    badge: "Creative"
+  },
+  {
+    id: "web-apps-saas",
+    slug: "/services/software-development",
+    icon: Layout,
+    title: "Web Apps & SaaS Solutions",
+    subtitle: "Cloud-Native Platforms",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80",
+    desc: "Scalable software-as-a-service products built for multi-tenant architectures, subscription handling, complex user permissions, and global uptime.",
+    deliverables: [
+      "Multi-Tenant Cloud Architectures",
+      "Stripe & Payment Gateway Integrations",
+      "User Tier & License Management",
+      "Microservices & REST/GraphQL APIs"
+    ],
+    badge: "Cloud SaaS"
+  },
+  {
+    id: "ecommerce-solutions",
+    slug: "/services/website-development",
+    icon: ShoppingBag,
+    title: "E-commerce Solutions",
+    subtitle: "High-Converting Online Stores",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDHqnUNvQco4t201iW3W650f3fustEVOQTtPT7g3P9Fg&s=10",
+    desc: "Custom storefronts and Shopify/WooCommerce builds featuring seamless checkout flows, localized payment gateways, and automated order fulfillment.",
+    deliverables: [
+      "Custom Headless E-commerce Stores",
+      "Shopify / WooCommerce Customization",
+      "Local & International Payment Options",
+      "Real-time Inventory & Shipping Sync"
+    ],
+    badge: "E-Commerce"
+  },
+  {
+    id: "digital-marketing",
+    slug: "/services/digital-marketing",
+    icon: Megaphone,
+    title: "Digital Marketing & SEO",
+    subtitle: "Growth & Search Engine Dominance",
+    image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80",
+    desc: "Data-driven marketing campaigns, technical SEO, and Answer Engine Optimization (AEO) designed to capture organic search and convert leads.",
+    deliverables: [
+      "Technical SEO & Content Strategy",
+      "Search Engine & AI Search (AEO) Optimization",
+      "Pay-Per-Click (PPC) Campaign Management",
+      "Social Media Growth & Lead Generation"
+    ],
+    badge: "Growth"
+  }
 ];
 
-const WHY = [
-  { icon: Zap,        title: "Fast Delivery",        desc: "Agile sprints, weekly demos, on-time launches — every time." },
-  { icon: Shield,     title: "Secure by Default",    desc: "Security isn't a feature. It's woven into every line we write." },
-  { icon: Users,      title: "Dedicated Team",       desc: "A single point of contact. A whole team behind every project." },
-  { icon: BarChart3,  title: "Results-Driven",       desc: "KPIs defined upfront. We measure what matters to your business." },
-  { icon: Star,       title: "Quality Obsessed",     desc: "We don't ship until we're proud of it. No exceptions." },
-  { icon: CheckCircle2, title: "Full-Stack Coverage", desc: "From design to DevOps, we cover every layer of your product." },
+const faqs = [
+  { q: "How do we choose the right service for our business?", a: "We begin with a complimentary technical discovery call to review your current setup, goals, and operational friction points. We then recommend an end-to-end strategy aligned with your timeline and budget." },
+  { q: "Do you offer full post-launch support and maintenance?", a: "Yes. Every project includes post-launch monitoring and bug-fix coverage. Additionally, we provide monthly retainer agreements for continuous updates, feature scaling, and cloud server management." },
+  { q: "Can your custom software integrate with our existing tools?", a: "Absolutely. We specialize in building custom API adapters to link new software with existing legacy systems, CRMs, accounting tools, payment gateways, and databases." },
+  { q: "How long does a typical custom software or web application take?", a: "Project timelines vary by scope: core websites take 3 to 6 weeks, while complex SaaS or custom enterprise ERP/CRM builds typically range from 8 to 16 weeks." },
 ];
 
-const PROCESS = [
-  { num: "01", title: "Discovery", desc: "We deep-dive into your goals, users, and market to map the right strategy." },
-  { num: "02", title: "Design",    desc: "Wireframes, UI concepts, and interactive prototypes — refined with your feedback." },
-  { num: "03", title: "Build",     desc: "Agile development with weekly demos and full transparency throughout." },
-  { num: "04", title: "Launch",    desc: "Zero-downtime deployment with full post-launch monitoring and support." },
-];
+// ─── 3. GOOGLE STRUCTURED DATA (JSON-LD) ────────────────────────────────────
 
-const STATS = [
-  { value: "50+",  label: "Projects Delivered" },
-  { value: "30+",  label: "Happy Clients" },
-  { value: "6",    label: "Core Services" },
-  { value: "24/7", label: "Support" },
-];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "@id": "https://devntomsolutions.com/services/#itemlist",
+      "name": "Digital & Software Engineering Services",
+      "itemListElement": services.map((s, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Service",
+          "name": s.title,
+          "description": s.desc,
+          "provider": {
+            "@type": "Organization",
+            "name": "DEVNTOM Solutions",
+            "url": "https://devntomsolutions.com"
+          },
+          "url": `https://devntomsolutions.com${s.slug}`
+        }
+      }))
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://devntomsolutions.com/services/#faq",
+      "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.a
+        }
+      }))
+    }
+  ]
+};
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const, delay },
-});
+// ─── 4. REUSABLE SERVER COMPONENTS ──────────────────────────────────────────
 
-// ─── Service Card (expandable) ────────────────────────────────────────────────
-function ServiceCard({ svc, index }: { svc: typeof SERVICES[0]; index: number }) {
-  const [open, setOpen] = useState(false);
-  const Icon = svc.icon;
-
+function Pill({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <motion.div
-      {...fadeUp(0.06 * index)}
-      className="group relative rounded-3xl overflow-hidden border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-all duration-500"
-    >
-      {/* Top image strip */}
-      <div className="relative h-48 overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={svc.img}
-          alt={svc.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-[#0a0a0e]/95" />
-
-        {/* Number label */}
-        <span
-          className="absolute top-4 left-5 text-[11px] font-black tracking-[0.22em] opacity-50"
-          style={{ color: svc.color }}
-        >
-          {svc.label}
-        </span>
-
-        {/* Stat badge */}
-        <div
-          className="absolute top-4 right-5 px-3 py-1.5 rounded-full text-[10px] font-black"
-          style={{ background: `${svc.color}18`, border: `1px solid ${svc.color}35`, color: svc.color }}
-        >
-          {svc.stat.value} {svc.stat.label}
-        </div>
-      </div>
-
-      {/* Body */}
-      <div className="p-6 flex flex-col gap-4">
-        <div className="flex items-start gap-3">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: `${svc.color}18`, border: `1px solid ${svc.color}30` }}
-          >
-            <Icon size={18} style={{ color: svc.color }} />
-          </div>
-          <div>
-            <h3 className="text-base font-black text-white leading-tight">{svc.name}</h3>
-            <p className="text-[11px] font-semibold mt-0.5" style={{ color: svc.color }}>{svc.tagline}</p>
-          </div>
-        </div>
-
-        <p className="text-[13px] text-white/45 leading-relaxed">{svc.desc}</p>
-
-        {/* Tech pills */}
-        <div className="flex flex-wrap gap-1.5">
-          {svc.tech.map((t) => (
-            <span key={t} className="px-2.5 py-1 rounded-full text-[10px] font-bold text-white/35 border border-white/[0.07] bg-white/[0.03]">
-              {t}
-            </span>
-          ))}
-        </div>
-
-        {/* Expandable features */}
-        <button
-          onClick={() => setOpen((p) => !p)}
-          className="flex items-center gap-2 text-xs font-bold transition-colors mt-1"
-          style={{ color: open ? svc.color : "rgba(255,255,255,0.3)" }}
-        >
-          {open ? "Hide details" : "See what's included"}
-          <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.22 }}>
-            <ChevronRight size={13} />
-          </motion.div>
-        </button>
-
-        <AnimatePresence initial={false}>
-          {open && (
-            <motion.ul
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden space-y-2"
-            >
-              {svc.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-xs text-white/50">
-                  <CheckCircle2 size={12} className="flex-shrink-0 mt-0.5" style={{ color: svc.color }} />
-                  {f}
-                </li>
-              ))}
-            </motion.ul>
-          )}
-        </AnimatePresence>
-
-        {/* CTA row */}
-        <div className="flex items-center justify-between pt-2 border-t border-white/[0.05] mt-1">
-          <Link
-            href={svc.href}
-            className="inline-flex items-center gap-1.5 text-xs font-bold group/btn transition-colors"
-            style={{ color: svc.color }}
-          >
-            Learn more
-            <ArrowRight size={11} className="group-hover/btn:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            href="/contact"
-            className="px-4 py-2 rounded-full text-xs font-bold text-white transition-all hover:scale-105"
-            style={{ background: `${svc.color}22`, border: `1px solid ${svc.color}35` }}
-          >
-            Get a Quote
-          </Link>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Horizontal scrolling service strip (hero) ───────────────────────────────
-function ServiceStrip() {
-  return (
-    <div className="relative overflow-hidden py-3">
-      <motion.div
-        className="flex gap-6 w-max"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" }}
-      >
-        {[...SERVICES, ...SERVICES].map((svc, i) => {
-          const Icon = svc.icon;
-          return (
-            <div key={i} className="flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/[0.06] bg-white/[0.02] flex-shrink-0">
-              <Icon size={13} style={{ color: svc.color }} />
-              <span className="text-xs font-bold text-white/40 whitespace-nowrap">{svc.name}</span>
-            </div>
-          );
-        })}
-      </motion.div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#0a0a0e] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#0a0a0e] to-transparent" />
+    <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full border ${dark ? "border-blue-500/30 bg-blue-500/10" : "bg-white border-slate-200 shadow-sm"}`}>
+      <div className={`w-2 h-2 rounded-full ${dark ? "bg-blue-400 animate-pulse" : "bg-blue-600"}`} />
+      <span className={`text-xs font-black uppercase tracking-widest ${dark ? "text-blue-300" : "text-slate-600"}`}>{children}</span>
     </div>
   );
 }
 
-// ─── Big horizontal service list (alternate layout) ──────────────────────────
-function ServiceRow({ svc, index }: { svc: typeof SERVICES[0]; index: number }) {
-  const [hovered, setHovered] = useState(false);
-  const Icon = svc.icon;
-  const isEven = index % 2 === 0;
+// ─── 5. MAIN PAGE COMPONENT ─────────────────────────────────────────────────
 
-  return (
-    <motion.div
-      {...fadeUp(0.05 * index)}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className="group relative grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-white/[0.05] hover:border-white/[0.10] transition-all duration-500"
-      style={{ background: hovered ? `${svc.color}05` : "rgba(255,255,255,0.01)" }}
-    >
-      {/* Image side */}
-      <div className={`relative h-[300px] lg:h-auto overflow-hidden ${!isEven ? "lg:order-2" : ""}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={svc.img}
-          alt={svc.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div
-          className="absolute inset-0 transition-opacity duration-500"
-          style={{
-            background: isEven
-              ? `linear-gradient(to right, transparent 50%, #0a0a0e 100%)`
-              : `linear-gradient(to left, transparent 50%, #0a0a0e 100%)`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0e]/80 lg:hidden" />
-
-        {/* Stat overlay */}
-        <motion.div
-          animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.92 }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-6 left-6 px-5 py-3 rounded-2xl"
-          style={{ background: `${svc.color}22`, border: `1px solid ${svc.color}40`, backdropFilter: "blur(12px)" }}
-        >
-          <p className="text-2xl font-black" style={{ color: svc.color }}>{svc.stat.value}</p>
-          <p className="text-[10px] font-bold text-white/50">{svc.stat.label}</p>
-        </motion.div>
-      </div>
-
-      {/* Content side */}
-      <div className={`flex flex-col justify-center gap-6 p-8 lg:p-12 ${!isEven ? "lg:order-1" : ""}`}>
-        <div className="flex items-center gap-3">
-          <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center"
-            style={{ background: `${svc.color}18`, border: `1px solid ${svc.color}35` }}
-          >
-            <Icon size={20} style={{ color: svc.color }} />
-          </div>
-          <span
-            className="text-[10px] font-black tracking-[0.2em] uppercase"
-            style={{ color: svc.color }}
-          >
-            {svc.label} / {svc.name}
-          </span>
-        </div>
-
-        <div>
-          <h3 className="text-[clamp(1.6rem,3vw,2.4rem)] font-black text-white leading-[1.08] tracking-tight mb-3">
-            {svc.tagline}
-          </h3>
-          <p className="text-sm text-white/45 leading-relaxed max-w-md">{svc.desc}</p>
-        </div>
-
-        {/* Feature grid */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-          {svc.features.slice(0, 6).map((f) => (
-            <div key={f} className="flex items-start gap-2">
-              <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: svc.color }} />
-              <span className="text-[12px] text-white/45 leading-snug">{f}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Tech row */}
-        <div className="flex flex-wrap gap-1.5">
-          {svc.tech.map((t) => (
-            <span key={t} className="px-3 py-1 rounded-full text-[10px] font-bold text-white/30 border border-white/[0.07] bg-white/[0.02]">
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3 pt-1">
-          <Link
-            href={svc.href}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105 group/btn"
-            style={{ background: `${svc.color}25`, border: `1px solid ${svc.color}45`, boxShadow: `0 4px 16px ${svc.color}18` }}
-          >
-            View Service <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
-          </Link>
-          <Link href="/contact" className="text-xs font-bold text-white/30 hover:text-white/70 transition-colors">
-            Get a Quote →
-          </Link>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function ServicesPage() {
-  const [view, setView] = useState<"cards" | "detailed">("cards");
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
   return (
     <>
-      <main className="bg-[#0a0a0e] min-h-screen font-sans overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      {/* Pure CSS SSR Animations */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+      `}} />
 
-        {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <section ref={heroRef} className="relative min-h-[90vh] flex flex-col justify-end overflow-hidden">
-          {/* BG image with parallax */}
-          <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1800&auto=format&fit=crop&q=80"
-              className="w-full h-full object-cover opacity-20"
-              alt=""
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0e]/60 via-[#0a0a0e]/30 to-[#0a0a0e]" />
-          </motion.div>
-
-          {/* Ambient glows */}
-          <div className="absolute top-24 left-1/4 w-[600px] h-[400px] rounded-full bg-sky-500/10 blur-[120px] pointer-events-none" />
-          <div className="absolute top-32 right-1/4 w-[400px] h-[300px] rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
-
-          <motion.div
-            style={{ opacity: heroOpacity }}
-            className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-20 w-full"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-sky-500/25 bg-sky-500/10 mb-8"
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-              <span className="text-xs font-bold text-sky-300 tracking-wide">What We Do</span>
-            </motion.div>
-
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
-                className="text-[clamp(3rem,9vw,8rem)] font-black text-white leading-[0.88] tracking-[-0.04em]"
-              >
-                Six Ways<br />
-                We Build<br />
-                <span style={{ color: ACCENT }}>Your Future</span>
-              </motion.h1>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="flex flex-col gap-5 max-w-xs lg:pb-3"
-              >
-                <p className="text-sm text-white/40 leading-relaxed">
-                  From pixel-perfect interfaces to enterprise software and AI-powered automation — Devntom Solutions covers every digital discipline your business needs to grow.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white self-start transition-all hover:scale-105 group"
-                  style={{ background: `linear-gradient(135deg, ${ACCENT}cc, #7c3aed)`, boxShadow: `0 8px 28px ${ACCENT}30` }}
-                >
-                  Start a Project <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Stats row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.5 }}
-              className="flex flex-wrap gap-8 mt-16 pt-10 border-t border-white/[0.06]"
-            >
-              {STATS.map((s, i) => (
-                <div key={i} className="flex flex-col gap-1">
-                  <p className="text-3xl font-black text-white">{s.value}</p>
-                  <p className="text-xs text-white/35 font-semibold">{s.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Service name strip */}
-        <ServiceStrip />
-
-        {/* ── VIEW TOGGLE + SERVICES ───────────────────────────────────────── */}
-        <section className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-
-            {/* Section header + toggle */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-              <motion.div {...fadeUp()} className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03]">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
-                  <span className="text-xs font-bold text-white/40 tracking-wide">All Services</span>
-                </div>
-                <h2 className="text-[clamp(2rem,4vw,3.2rem)] font-black text-white tracking-tight leading-none">
-                  Everything We Offer
-                </h2>
-              </motion.div>
-
-              {/* View toggle */}
-              <motion.div {...fadeUp(0.1)} className="flex items-center gap-1 p-1 rounded-xl border border-white/[0.07] bg-white/[0.02]">
-                {(["cards", "detailed"] as const).map((v) => (
-                  <button
-                    key={v}
-                    onClick={() => setView(v)}
-                    className="relative px-4 py-2 rounded-lg text-xs font-bold transition-colors capitalize"
-                  >
-                    {view === v && (
-                      <motion.div
-                        layoutId="view-toggle"
-                        className="absolute inset-0 rounded-lg"
-                        style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <span className={`relative z-10 transition-colors ${view === v ? "text-white" : "text-white/30"}`}>
-                      {v === "cards" ? "Card View" : "Detailed View"}
-                    </span>
-                  </button>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Services grid */}
-            <AnimatePresence mode="wait">
-              {view === "cards" ? (
-                <motion.div
-                  key="cards"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
-                >
-                  {SERVICES.map((svc, i) => (
-                    <ServiceCard key={svc.id} svc={svc} index={i} />
-                  ))}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="detailed"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-col gap-6"
-                >
-                  {SERVICES.map((svc, i) => (
-                    <ServiceRow key={svc.id} svc={svc} index={i} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+      <main className="overflow-x-hidden font-sans selection:bg-blue-600 selection:text-white bg-slate-50">
+        
+        {/* HERO SECTION */}
+        <section className="relative min-h-[75vh] flex flex-col justify-center bg-[#05070F] overflow-hidden pt-24 pb-20 rounded-b-[3rem] sm:rounded-b-[5rem] shadow-2xl z-10">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,235,0.2),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           </div>
-        </section>
-
-        {/* ── WHY DEVNTOM ──────────────────────────────────────────────────── */}
-        <section className="py-24 px-6 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.06),transparent_65%)] pointer-events-none" />
-          <div className="max-w-7xl mx-auto relative z-10">
-
-            <div className="flex flex-col lg:flex-row justify-between items-start gap-10 mb-16">
-              <motion.div {...fadeUp()} className="space-y-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/10">
-                  <div className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-                  <span className="text-xs font-bold text-sky-300 tracking-wide">Why Choose Us</span>
-                </div>
-                <h2 className="text-[clamp(2rem,4vw,3.2rem)] font-black text-white tracking-tight leading-none">
-                  The Devntom<br />
-                  <span className="text-white/30">Difference</span>
-                </h2>
-              </motion.div>
-              <motion.p {...fadeUp(0.1)} className="text-sm text-white/40 max-w-sm leading-relaxed lg:text-right">
-                We&apos;ve built software for startups racing to launch and enterprises managing millions of users. Here&apos;s what makes working with us different.
-              </motion.p>
+          
+          <div className="relative z-10 max-w-7xl mx-auto px-6 w-full text-center">
+            <div className="flex justify-center mb-6 animate-fade-in-up">
+              <Pill dark>End-to-End Capabilities</Pill>
             </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {WHY.map((w, i) => (
-                <motion.div
-                  key={i}
-                  {...fadeUp(0.06 * i)}
-                  whileHover={{ y: -6 }}
-                  className="p-7 rounded-2xl border border-white/[0.05] bg-white/[0.02] hover:border-sky-500/20 hover:bg-sky-500/[0.03] transition-all group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center mb-5 group-hover:bg-sky-500/15 transition-colors">
-                    <w.icon size={18} className="text-sky-400" />
-                  </div>
-                  <h3 className="font-bold text-white mb-2">{w.title}</h3>
-                  <p className="text-sm text-white/40 leading-relaxed">{w.desc}</p>
-                </motion.div>
-              ))}
+            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[1.05] tracking-tight text-white animate-fade-in-up delay-100 mb-6">
+              Building Digital <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-400 to-indigo-300">
+                Ecosystems That Scale.
+              </span>
+            </h1>
+            <p className="text-slate-300 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200 font-medium mb-10">
+              From web applications and AI workflows to custom enterprise software (CRM & ERP), we deliver future-proof tech systems built to create measurable business impact.
+            </p>
+            
+            <div className="flex flex-wrap items-center justify-center gap-4 animate-fade-in-up delay-300">
+              <Link href="/contact" className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-xs tracking-wider uppercase transition-all shadow-xl shadow-blue-900/50 hover:-translate-y-0.5 flex items-center gap-2">
+                Get Service Estimate <ArrowRight size={16} />
+              </Link>
+              <a href="#services-grid" className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/15 border border-white/10 text-white font-black text-xs tracking-wider uppercase transition-all backdrop-blur-md">
+                Browse All Services
+              </a>
             </div>
           </div>
         </section>
 
-        {/* ── PROCESS ──────────────────────────────────────────────────────── */}
-        <section className="py-24 px-6">
+        {/* SERVICES GRID SECTION */}
+        <section id="services-grid" className="py-24 px-6 relative z-0 -mt-10">
           <div className="max-w-7xl mx-auto">
-            <motion.div {...fadeUp()} className="text-center space-y-4 mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.02]">
-                <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
-                <span className="text-xs font-bold text-white/40 tracking-wide">How We Work</span>
-              </div>
-              <h2 className="text-[clamp(2rem,4vw,3.2rem)] font-black text-white tracking-tight">
-                Our Process
+            <div className="text-center mb-16 space-y-4 animate-fade-in-up">
+              <Pill>Our Core Practice Areas</Pill>
+              <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black text-slate-900 tracking-tight">
+                Solutions Engineered For Modern Growth
               </h2>
-            </motion.div>
+            </div>
 
-            <div className="grid md:grid-cols-4 gap-4">
-              {PROCESS.map((step, i) => (
-                <motion.div
-                  key={i}
-                  {...fadeUp(0.08 * i)}
-                  className="relative p-7 rounded-2xl border border-white/[0.05] bg-white/[0.02] hover:border-white/10 transition-all group"
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((s, idx) => (
+                <div 
+                  key={s.id} 
+                  className="group bg-white rounded-[2.5rem] border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-300 transition-all duration-500 flex flex-col justify-between animate-fade-in-up"
+                  style={{ animationDelay: `${(idx % 3) * 100}ms` }}
                 >
-                  {/* Connector line */}
-                  {i < PROCESS.length - 1 && (
-                    <div className="hidden md:block absolute top-8 right-0 w-4 h-px bg-white/10 translate-x-full z-10" />
-                  )}
-                  <div className="text-[3rem] font-black text-white/[0.04] group-hover:text-white/[0.07] transition-colors leading-none mb-4 select-none">
-                    {step.num}
+                  <div>
+                    {/* Card Image Banner */}
+                    <div className="relative h-48 w-full overflow-hidden bg-slate-900">
+                      <img 
+                        src={s.image} 
+                        alt={s.title} 
+                        className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 opacity-85 group-hover:opacity-100"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                      
+                      {/* Top Badge */}
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-white text-[10px] font-black uppercase tracking-wider">
+                          {s.badge}
+                        </span>
+                      </div>
+
+                      {/* Icon */}
+                      <div className="absolute -bottom-5 right-6 w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg group-hover:bg-blue-500 transition-colors">
+                        <s.icon size={22} strokeWidth={2.2} />
+                      </div>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="p-8 pt-7">
+                      <p className="text-[11px] font-extrabold uppercase tracking-widest text-blue-600 mb-1">{s.subtitle}</p>
+                      <h3 className="text-2xl font-black text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">{s.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium mb-6">{s.desc}</p>
+
+                      {/* Deliverables Checklist */}
+                      <div className="space-y-2.5 pt-4 border-t border-slate-100">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Key Deliverables</p>
+                        {s.deliverables.map((item, i) => (
+                          <div key={i} className="flex items-start gap-2.5">
+                            <CheckCircle2 size={15} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                            <span className="text-xs font-semibold text-slate-700 leading-tight">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="font-black text-white mb-2">{step.title}</h3>
-                  <p className="text-sm text-white/40 leading-relaxed">{step.desc}</p>
-                </motion.div>
+
+                  {/* Card Footer Link */}
+                  <div className="p-8 pt-0">
+                    <Link 
+                      href={s.slug} 
+                      className="w-full py-3.5 px-6 rounded-2xl bg-slate-50 hover:bg-blue-600 text-slate-900 hover:text-white font-extrabold text-xs transition-all duration-300 flex items-center justify-between border border-slate-200/80 group-hover:border-blue-600 shadow-sm"
+                    >
+                      <span>Explore {s.title}</span>
+                      <ArrowRight size={15} />
+                    </Link>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── TRUST BAR ────────────────────────────────────────────────────── */}
-        <section className="py-12 px-6 border-y border-white/[0.04]">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-8">
-            <motion.p {...fadeUp()} className="text-sm text-white/25 font-semibold">
-              Trusted by businesses in 10+ industries
-            </motion.p>
-            <div className="flex flex-wrap items-center gap-8">
-              {["E-Commerce", "Healthcare", "FinTech", "EdTech", "Real Estate", "Logistics"].map((ind, i) => (
-                <motion.span
-                  key={ind}
-                  {...fadeUp(0.05 * i)}
-                  className="text-sm font-bold text-white/20 hover:text-white/45 transition-colors cursor-default"
-                >
-                  {ind}
-                </motion.span>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── FINAL CTA ────────────────────────────────────────────────────── */}
-        <section className="py-20 px-6">
+        {/* WHY CHOOSE OUR SERVICES */}
+        <section className="py-24 px-6 bg-white border-t border-slate-200">
           <div className="max-w-7xl mx-auto">
-            <div
-              className="relative rounded-[40px] p-10 md:p-16 overflow-hidden"
-              style={{
-                background: "linear-gradient(135deg, rgba(14,165,233,0.08), rgba(124,58,237,0.08))",
-                border: "1px solid rgba(14,165,233,0.12)",
-              }}
-            >
-              <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-sky-500/10 blur-[80px] pointer-events-none" />
-              <div className="absolute -bottom-16 -right-16 w-64 h-64 rounded-full bg-violet-600/10 blur-[80px] pointer-events-none" />
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <Pill>Engineering Excellence</Pill>
+                <h2 className="text-[clamp(2rem,4vw,3.2rem)] font-black text-slate-900 tracking-tight leading-[1.1]">
+                  Why Global Brands Partner With DEVNTOM
+                </h2>
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                  We don&apos;t just complete task tickets — we engineer systems designed for scalability, zero downtime, and strategic market advantage.
+                </p>
+                <div className="pt-2 grid sm:grid-cols-2 gap-4">
+                  {[
+                    { title: "No Vendor Lock-In", desc: "Full ownership of source code and architecture." },
+                    { title: "Zero Fluff Code", desc: "Clean, high-speed Next.js and Cloud infrastructures." },
+                    { title: "Global Delivery", desc: "Dedicated teams in Pakistan, Saudi Arabia & US." },
+                    { title: "24/7 Deployment Support", desc: "Continuous monitoring and proactive updates." }
+                  ].map((feat, idx) => (
+                    <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 className="font-extrabold text-slate-900 text-sm mb-1">{feat.title}</h4>
+                      <p className="text-xs text-slate-500 font-medium">{feat.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-              <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-                <div className="space-y-4 max-w-xl">
-                  <h2 className="text-[clamp(2rem,5vw,4rem)] font-black text-white leading-[1.05] tracking-tight">
-                    Not Sure Which<br />
-                    Service You Need?
+              {/* Graphic Feature Box */}
+              <div className="bg-[#05070F] rounded-[3rem] p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl border border-slate-800">
+                <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
+                <div className="space-y-8 relative z-10">
+                  <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white">
+                    <Sparkles size={28} />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black">
+                    Looking for a Tailored Enterprise Contract?
+                  </h3>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
+                    Need a dedicated engineering squad or multi-system transformation across logistics, CRM, and mobile? We structure custom SLAs tailored for medium-to-large enterprises.
+                  </p>
+                  <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-slate-900 hover:bg-blue-50 font-black text-xs uppercase tracking-wider transition-all">
+                    Schedule Executive Call <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ ACCORDION (Native HTML5 Accordion for SSR) */}
+        <section className="py-24 px-6 bg-slate-50 border-t border-slate-200">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16 space-y-4 animate-fade-in-up">
+              <Pill>Knowledge Base</Pill>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-black text-slate-900 tracking-tight">Services FAQ</h2>
+            </div>
+            <div className="space-y-4">
+              {faqs.map((faq, i) => (
+                <details key={i} className="group bg-white rounded-2xl border border-slate-200 overflow-hidden [&_summary::-webkit-details-marker]:hidden hover:border-blue-300 transition-colors shadow-sm">
+                  <summary className="w-full px-8 py-6 flex items-center justify-between cursor-pointer list-none">
+                    <span className="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-blue-700 transition-colors pr-4">
+                      {faq.q}
+                    </span>
+                    <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 group-open:bg-blue-700 group-open:text-white group-hover:bg-blue-100 transition-all text-blue-700">
+                      <ChevronDown size={18} className="group-open:rotate-180 transition-transform duration-300" />
+                    </div>
+                  </summary>
+                  <div className="px-8 pb-6 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-medium border-t border-slate-100 animate-fade-in">
+                    {faq.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA BANNER */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="relative bg-[#05070F] rounded-[3rem] p-10 sm:p-16 lg:p-20 overflow-hidden shadow-2xl">
+              <div className="pointer-events-none absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-blue-700/20 blur-[120px]" />
+              <div className="pointer-events-none absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-sky-600/15 blur-[120px]" />
+              
+              <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
+                <div className="space-y-6 max-w-2xl">
+                  <Pill dark>Start Execution</Pill>
+                  <h2 className="text-[clamp(2.5rem,4vw,4rem)] font-black leading-[1.05] tracking-tight text-white">
+                    Have a Project in Mind?<br />
+                    <span className="text-blue-400">Let&apos;s Build It Right.</span>
                   </h2>
-                  <p className="text-sm text-white/40 leading-relaxed">
-                    Tell us about your business and goals — we&apos;ll recommend the right stack of services and build you a custom proposal, free of charge.
+                  <p className="text-slate-300 text-xs sm:text-base leading-relaxed font-medium">
+                    Discuss your requirements directly with our technical leads in Pakistan, Saudi Arabia, or the US.
                   </p>
                 </div>
-
-                <div className="flex flex-col gap-3 flex-shrink-0">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-white transition-all hover:scale-105 group"
-                    style={{ background: `linear-gradient(135deg, ${ACCENT}, #7c3aed)`, boxShadow: `0 8px 32px ${ACCENT}30` }}
-                  >
-                    Book a Free Discovery Call
-                    <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                
+                <div className="flex flex-col gap-4 w-full lg:w-auto flex-shrink-0">
+                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-900/50 hover:-translate-y-1">
+                    Book Discovery Call <ArrowRight size={16} />
                   </Link>
-                  <a
-                    href="https://wa.me/923256036838"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-white/70 border border-white/10 hover:border-white/25 hover:text-white transition-all"
-                  >
-                    <MessageCircle size={15} /> Chat on WhatsApp
+                  <a href="https://wa.me/923256036838" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-white/10 hover:border-white/30 text-white font-bold text-xs transition-all hover:bg-white/5">
+                    <MessageCircle size={16} className="text-green-400" /> Instant WhatsApp Chat
                   </a>
+                  
+                  <div className="pt-4 flex flex-col gap-2 border-t border-white/10 mt-2">
+                    <a href="mailto:info@devntomsolutions@gmail.com" className="flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition-colors">
+                      <Mail size={14} className="text-blue-400" /> info@devntomsolutions@gmail.com
+                    </a>
+                    <a href="tel:+923256036838" className="flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition-colors">
+                      <Phone size={14} className="text-blue-400" /> +92 325 603 6838 / +966 583 408034
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
+        
       </main>
     </>
   );

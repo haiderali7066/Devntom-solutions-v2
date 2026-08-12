@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useAnimationFrame, useReducedMotion } from "framer-motion";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, Globe } from "lucide-react";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -82,48 +82,13 @@ const SOCIALS = [
       </svg>
     ),
   },
-  {
-    label: "Pinterest",
-    href: "https://www.pinterest.com/devntomsolutions",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Reddit",
-    href: "https://www.reddit.com/user/Civil_Woodpecker7536/",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Medium",
-    href: "https://medium.com/@devntomsolutions",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Stack Overflow",
-    href: "https://stackoverflow.com/users/32455629/devntom-solutions",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M18.986 21.865v-6.404h2.134V24H1.844v-8.539h2.13v6.404h15.012zM6.111 19.731H16.85v-2.137H6.111v2.137zm.259-4.852l10.48 2.189.451-2.07-10.478-2.187-.453 2.068zm1.359-5.056l9.705 4.53.903-1.95-9.706-4.53-.902 1.95zm2.715-4.785l8.217 6.855 1.359-1.62-8.216-6.853-1.36 1.618zM15.751 0l-1.746 1.294 6.405 8.604 1.746-1.294L15.751 0z" />
-      </svg>
-    ),
-  },
 ];
 
 // ─── LIVE CLOCK ───────────────────────────────────────────────────────────────
 
 function LiveClock() {
   const [time, setTime] = useState("");
+  
   useEffect(() => {
     const tick = () =>
       setTime(
@@ -138,17 +103,18 @@ function LiveClock() {
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
-  // Reserve width so the layout doesn't jump once the client-side time mounts.
+
   return (
-    <span className="font-black text-white tabular-nums inline-block min-w-[92px] text-right sm:text-left">
+    <span className="font-bold text-white tabular-nums inline-flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 min-w-[92px] justify-center">
+      <Globe size={12} className="text-blue-400" />
       {time || "--:--:-- --"}
     </span>
   );
 }
 
-// ─── ANIMATED VIOLET/SKY BLOB ─────────────────────────────────────────────────
+// ─── ANIMATED BLUE/OCEAN BLOB ─────────────────────────────────────────────────
 
-function VioletBlob({ reduceMotion }: { reduceMotion: boolean }) {
+function BlueOceanBlob({ reduceMotion }: { reduceMotion: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tRef = useRef(0);
   const drewStaticFrame = useRef(false);
@@ -161,17 +127,18 @@ function VioletBlob({ reduceMotion }: { reduceMotion: boolean }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    if (!reduceMotion) tRef.current += delta * 0.0003;
+    if (!reduceMotion) tRef.current += delta * 0.00025;
     const t = tRef.current;
     const W = canvas.width;
     const H = canvas.height;
     ctx.clearRect(0, 0, W, H);
 
+    // Deep Blue, Sky Blue, and Cyan palettes
     const blobs = [
-      { x: 0.72 + 0.08 * Math.sin(t * 1.0), y: 0.38 + 0.12 * Math.cos(t * 0.7), r: 0.42, a: 0.55, c: "124,58,237" }, // violet
-      { x: 0.82 + 0.05 * Math.cos(t * 0.9), y: 0.55 + 0.09 * Math.sin(t * 1.3), r: 0.3, a: 0.4, c: "14,165,233" }, // sky
-      { x: 0.6 + 0.1 * Math.sin(t * 0.6), y: 0.28 + 0.08 * Math.cos(t * 1.5), r: 0.24, a: 0.3, c: "99,102,241" }, // indigo
-      { x: 0.88 + 0.04 * Math.sin(t * 1.2), y: 0.68 + 0.06 * Math.cos(t * 0.8), r: 0.18, a: 0.25, c: "14,165,233" }, // sky accent
+      { x: 0.72 + 0.08 * Math.sin(t * 1.0), y: 0.38 + 0.12 * Math.cos(t * 0.7), r: 0.45, a: 0.45, c: "37,99,235" },   // Royal Blue
+      { x: 0.82 + 0.05 * Math.cos(t * 0.9), y: 0.55 + 0.09 * Math.sin(t * 1.3), r: 0.35, a: 0.35, c: "14,165,233" },  // Sky Blue
+      { x: 0.60 + 0.10 * Math.sin(t * 0.6), y: 0.28 + 0.08 * Math.cos(t * 1.5), r: 0.30, a: 0.30, c: "29,78,216" },   // Deep Blue
+      { x: 0.88 + 0.04 * Math.sin(t * 1.2), y: 0.68 + 0.06 * Math.cos(t * 0.8), r: 0.25, a: 0.20, c: "6,182,212" },   // Cyan accent
     ];
 
     for (const b of blobs) {
@@ -180,7 +147,7 @@ function VioletBlob({ reduceMotion }: { reduceMotion: boolean }) {
       const gr = b.r * Math.max(W, H);
       const grad = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
       grad.addColorStop(0, `rgba(${b.c},${b.a})`);
-      grad.addColorStop(0.4, `rgba(${b.c},${b.a * 0.45})`);
+      grad.addColorStop(0.5, `rgba(${b.c},${b.a * 0.3})`);
       grad.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, W, H);
@@ -201,71 +168,70 @@ function VioletBlob({ reduceMotion }: { reduceMotion: boolean }) {
   );
 }
 
-// ─── FOOTER ───────────────────────────────────────────────────────────────────
+// ─── FOOTER COMPONENT ─────────────────────────────────────────────────────────
 
 export default function Footer() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <footer className="relative bg-[#080810] overflow-hidden font-sans">
-      <VioletBlob reduceMotion={!!reduceMotion} />
+    <footer className="relative bg-[#030712] overflow-hidden font-sans border-t border-white/5">
+      <BlueOceanBlob reduceMotion={!!reduceMotion} />
 
-      {/* ── Social / email top bar ── */}
-      <div className="relative z-10 border-b border-white/[0.07]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 flex flex-wrap items-center justify-center sm:justify-between gap-x-5 gap-y-3">
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+      {/* ── Social / Email Top Bar ── */}
+      <div className="relative z-10 border-b border-white/[0.06] bg-black/20 backdrop-blur-sm">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-3.5 flex flex-wrap items-center justify-center sm:justify-between gap-x-6 gap-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {SOCIALS.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-[12px] font-semibold text-white/35 hover:text-white focus-visible:text-white transition-colors duration-200 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080810]"
+                className="flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-blue-400 focus-visible:text-blue-400 transition-colors duration-300 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
               >
-                <span className="text-white/25">{s.icon}</span>
+                <span className="text-slate-500 group-hover:text-blue-400 transition-colors">{s.icon}</span>
                 {s.label}
               </a>
             ))}
           </div>
           <a
-            href="mailto:devntomsolutions@gmail.com"
-            className="text-[12px] font-semibold text-white/35 hover:text-white focus-visible:text-white transition-colors tracking-tight rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080810]"
+            href="mailto:Info@Devntomsolutions@gmail.com"
+            className="text-xs font-semibold text-slate-400 hover:text-blue-400 focus-visible:text-blue-400 transition-colors tracking-tight rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
           >
-            devntomsolutions@gmail.com
+            Info@Devntomsolutions@gmail.com
           </a>
         </div>
       </div>
 
-      {/* ── Main grid ── */}
-      <div className="relative z-10 border-b border-white/[0.07]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] gap-x-6 gap-y-10 sm:gap-8">
-          {/* Col 1: Brand */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col gap-7">
-            {/* Logo */}
-            <Link href="/logosign.PNG" className="flex items-center gap-2 group w-fit rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080810]">
-              
-              <span className="text-base font-black tracking-tight text-white">
+      {/* ── Main Grid ── */}
+      <div className="relative z-10 border-b border-white/[0.06]">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.8fr_1fr_1fr_1fr_1fr] gap-x-8 gap-y-12">
+          
+          {/* Col 1: Brand & Nav */}
+          <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col gap-8">
+            <Link href="/" className="flex items-center gap-2 w-fit rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]">
+              <span className="text-lg font-black tracking-tighter text-white">
                 DEVNTOM
-              </span><span className="text-base font-black tracking-tight text-white">
-                SOLUTIONS<span className="text-sky-400">.</span>
+              </span>
+              <span className="text-lg font-black tracking-tighter text-white">
+                SOLUTIONS<span className="text-blue-500">.</span>
               </span>
             </Link>
 
-            {/* Stacked nav links */}
-            <nav aria-label="Footer">
-              <ul className="flex flex-col gap-0.5">
+            <nav aria-label="Footer Navigation">
+              <ul className="flex flex-col gap-1.5">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
                     key={link.label}
                     initial={reduceMotion ? undefined : { opacity: 0, x: -10 }}
                     whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.06 * i }}
+                    transition={{ delay: 0.05 * i }}
                   >
                     <Link
                       href={link.href}
-                      className={`block text-[1.4rem] font-bold leading-snug tracking-tight transition-colors duration-200 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 ${
-                        i === 0 ? "text-white" : "text-white/25 hover:text-white"
+                      className={`block text-2xl font-black leading-snug tracking-tight transition-all duration-300 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] ${
+                        i === 0 ? "text-slate-600" : "text-slate-600 hover:text-white"
                       }`}
                     >
                       {link.label}
@@ -275,20 +241,20 @@ export default function Footer() {
               </ul>
             </nav>
 
-            <p className="text-[11.5px] text-white/20 font-medium leading-relaxed max-w-[220px]">
-              Building bold digital products for businesses that want to lead, not follow.
+            <p className="text-xs text-slate-500 font-medium leading-relaxed max-w-[240px]">
+              Engineering high-performance software and bold digital ecosystems for modern enterprises.
             </p>
           </div>
 
           {/* Col 2: Services */}
-          <div className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-white/25">Services</h4>
-            <ul className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-6">
+            <h4 className="text-[11px] font-black tracking-[0.2em] uppercase text-slate-500">Services</h4>
+            <ul className="flex flex-col gap-3">
               {SERVICES.map((s) => (
                 <li key={s.href}>
                   <Link
                     href={s.href}
-                    className="text-[12.5px] font-semibold text-white/40 hover:text-white transition-colors leading-tight rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400"
+                    className="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors leading-tight rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                   >
                     {s.label}
                   </Link>
@@ -298,14 +264,14 @@ export default function Footer() {
           </div>
 
           {/* Col 3: Products */}
-          <div className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-white/25">Products</h4>
-            <ul className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-6">
+            <h4 className="text-[11px] font-black tracking-[0.2em] uppercase text-slate-500">Products</h4>
+            <ul className="flex flex-col gap-3">
               {PRODUCTS.map((p) => (
                 <li key={p.href}>
                   <Link
                     href={p.href}
-                    className="text-[12.5px] font-semibold text-white/40 hover:text-white transition-colors leading-tight rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400"
+                    className="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors leading-tight rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                   >
                     {p.label}
                   </Link>
@@ -315,14 +281,14 @@ export default function Footer() {
           </div>
 
           {/* Col 4: Company */}
-          <div className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-white/25">Company</h4>
-            <ul className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-6">
+            <h4 className="text-[11px] font-black tracking-[0.2em] uppercase text-slate-500">Company</h4>
+            <ul className="flex flex-col gap-3">
               {COMPANY.map((c) => (
                 <li key={c.href}>
                   <Link
                     href={c.href}
-                    className="text-[12.5px] font-semibold text-white/40 hover:text-white transition-colors rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400"
+                    className="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                   >
                     {c.label}
                   </Link>
@@ -332,17 +298,17 @@ export default function Footer() {
           </div>
 
           {/* Col 5: Contact */}
-          <div className="col-span-2 sm:col-span-1 flex flex-col gap-5">
-            <h4 className="text-[10px] font-black tracking-[0.2em] uppercase text-white/25">Contact</h4>
-            <ul className="flex flex-col gap-4">
+          <div className="col-span-2 sm:col-span-1 flex flex-col gap-6">
+            <h4 className="text-[11px] font-black tracking-[0.2em] uppercase text-slate-500">Contact</h4>
+            <ul className="flex flex-col gap-5">
               <li>
                 <a
-                  href="mailto:devntomsolutions@gmail.com"
-                  className="flex items-start gap-2.5 group rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 w-fit"
+                  href="mailto:Info@Devntomsolutions@gmail.com"
+                  className="flex items-start gap-3 group rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 w-fit"
                 >
-                  <Mail size={13} className="mt-0.5 flex-shrink-0 text-sky-500" />
-                  <span className="text-[12px] font-semibold text-white/40 group-hover:text-white transition-colors leading-snug break-all">
-                    devntomsolutions@gmail.com
+                  <Mail size={16} className="mt-0.5 flex-shrink-0 text-blue-500 group-hover:text-blue-400 transition-colors" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors leading-snug break-all">
+                    Info@Devntomsolutions@gmail.com
                   </span>
                 </a>
               </li>
@@ -351,109 +317,97 @@ export default function Footer() {
                   href="https://wa.me/923256036838"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 group rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 w-fit"
+                  className="flex items-start gap-3 group rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 w-fit"
                 >
-                  <Phone size={13} className="mt-0.5 flex-shrink-0 text-sky-500" />
-                  <span className="text-[12px] font-semibold text-white/40 group-hover:text-white transition-colors leading-snug">
+                  <Phone size={16} className="mt-0.5 flex-shrink-0 text-blue-500 group-hover:text-blue-400 transition-colors" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors leading-snug">
                     +92 325 6036838
                     <br />
-                    <span className="text-white/20 font-medium">WhatsApp &amp; PK</span>
+                    <span className="text-slate-600 text-xs font-semibold">WhatsApp &amp; PK</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:+966583408034"
-                  className="flex items-start gap-2.5 group rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400 w-fit"
+                  className="flex items-start gap-3 group rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 w-fit"
                 >
-                  <Phone size={13} className="mt-0.5 flex-shrink-0 text-sky-500" />
-                  <span className="text-[12px] font-semibold text-white/40 group-hover:text-white transition-colors leading-snug">
+                  <Phone size={16} className="mt-0.5 flex-shrink-0 text-blue-500 group-hover:text-blue-400 transition-colors" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors leading-snug">
                     +966 583 408034
                     <br />
-                    <span className="text-white/20 font-medium">Saudi Arabia</span>
+                    <span className="text-slate-600 text-xs font-semibold">Saudi Arabia</span>
                   </span>
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin size={13} className="mt-0.5 flex-shrink-0 text-sky-500" />
-                <span className="text-[12px] font-semibold text-white/40 leading-snug">
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="mt-0.5 flex-shrink-0 text-blue-500" />
+                <span className="text-sm font-medium text-slate-400 leading-snug">
                   Lahore, Pakistan &amp;
                   <br />
-                  Saudi Arabia
+                  Riyadh, Saudi Arabia
                 </span>
               </li>
             </ul>
-
-            {/* Social icon grid */}
-            <div className="flex flex-wrap gap-2 mt-1">
-              {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:border-sky-500/50 hover:bg-sky-500/10 transition-all duration-200 outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080810]"
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </div>
 
-      {/* ── Giant "Get in Touch" ── */}
-      <div className="relative z-10 overflow-hidden">
+      {/* ── Giant "Devntom Solutions" Text ── */}
+      <div className="relative z-10 overflow-hidden pt-12 pb-6">
         <motion.h2
-          initial={reduceMotion ? undefined : { opacity: 0, y: 60 }}
+          initial={reduceMotion ? undefined : { opacity: 0, y: 40 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[clamp(2.25rem,9vw,11rem)] font-black text-white leading-[0.9] sm:leading-[0.85] tracking-[-0.02em] sm:tracking-[-0.03em] px-4 sm:px-6 lg:px-10 pt-8 pb-3 whitespace-normal sm:whitespace-nowrap break-words"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-[clamp(2.5rem,8.5vw,12rem)] font-black leading-[0.8] tracking-[-0.03em] px-6 lg:px-10 whitespace-normal sm:whitespace-nowrap break-words text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-200 to-slate-800"
         >
-          Devntom Solutions
+          Devntom Solutions.
         </motion.h2>
       </div>
 
-      {/* ── CTA row ── */}
-      <div className="relative z-10 px-4 sm:px-6 lg:px-10 pb-6">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+      {/* ── CTA Row ── */}
+      <div className="relative z-10 px-6 lg:px-10 pb-12 bg-amber-200">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center  gap-4">
           <a
-            href="mailto:devntomsolutions@gmail.com"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white transition-all hover:scale-[1.03] outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080810]"
+            href="mailto:Info@Devntomsolutions@gmail.com"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-black uppercase tracking-wider text-white transition-all hover:scale-105 outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] shadow-xl shadow-blue-900/30"
             style={{
-              background: "linear-gradient(135deg, rgba(14,165,233,0.8), rgba(124,58,237,0.8))",
-              boxShadow: "0 6px 24px rgba(14,165,233,0.25)",
+              background: "linear-gradient(135deg, #3b82f6, #1d4ed8)",
             }}
           >
-            Email Us <ArrowRight size={13} />
+            Start a Project <ArrowRight size={16} />
           </a>
           <a
             href="https://wa.me/923256036838"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white border border-white/15 hover:border-white/30 hover:bg-white/[0.04] transition-all outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080810]"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider text-white border border-white/20 hover:border-white/50 hover:bg-white/10 transition-all outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
           >
-            WhatsApp
+            WhatsApp Us
           </a>
         </div>
       </div>
 
-      {/* ── Bottom bar ── */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 border-t border-white/[0.05] text-center sm:text-left">
-        <div className="flex items-center gap-3 sm:gap-5 flex-wrap justify-center">
-          <p className="text-[11px] text-white/20 font-medium">DEVNTOM Solutions © {new Date().getFullYear()}</p>
-          <Link href="/privacy-policy" className="text-[11px] text-white/15 hover:text-white/40 transition-colors font-medium rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400">
-            Privacy Policy
-          </Link>
-          <Link href="/terms-of-service" className="text-[11px] text-white/15 hover:text-white/40 transition-colors font-medium rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-sky-400">
-            Terms of Service
-          </Link>
-        </div>
-        <div className="flex items-center gap-1.5 text-[11px] text-white/20 font-medium">
-          <span>Lahore, Pakistan&nbsp;</span>
-          <LiveClock />
+      {/* ── Bottom Bar ── */}
+      <div className="relative z-10 bg-black/40 backdrop-blur-md border-t border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
+            <p className="text-xs text-slate-500 font-semibold">
+              DEVNTOM Solutions © {new Date().getFullYear()}
+            </p>
+            <div className="h-3 w-px bg-white/10 hidden sm:block" />
+            <Link href="/privacy-policy" className="text-xs text-slate-400 hover:text-white transition-colors font-semibold rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="text-xs text-slate-400 hover:text-white transition-colors font-semibold rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+              Terms of Service
+            </Link>
+          </div>
+          <div className="flex items-center gap-3 text-xs text-slate-400 font-semibold">
+            <span>Local Time &rarr;</span>
+            <LiveClock />
+          </div>
         </div>
       </div>
     </footer>
