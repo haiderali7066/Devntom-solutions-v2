@@ -367,7 +367,7 @@ export default function Footer() {
       </div>
 
       {/* ── CTA Row ── */}
-      <div className="relative z-10 px-6 lg:px-10 pb-12 bg-amber-200">
+      <div className="relative z-10 px-6 lg:px-10 pb-12">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center  gap-4">
           <a
             href="mailto:Info@Devntomsolutions@gmail.com"
